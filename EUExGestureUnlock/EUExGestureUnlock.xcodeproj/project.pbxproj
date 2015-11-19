@@ -1,0 +1,336 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		42331F751BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 42331F741BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.m */; };
+		42331F781BFDC01C0061A9C4 /* UIColor+HtmlColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 42331F771BFDC01C0061A9C4 /* UIColor+HtmlColor.m */; };
+		42331F7B1BFDCBDE0061A9C4 /* uexGestureUnlockCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 42331F7A1BFDCBDE0061A9C4 /* uexGestureUnlockCenter.m */; };
+		42331F811BFDD5E50061A9C4 /* uexGestureUnlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42331F801BFDD5E50061A9C4 /* uexGestureUnlockView.m */; };
+		427778301BFD5DAB00AA5C41 /* EUExGestureUnlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 4277782F1BFD5DAB00AA5C41 /* EUExGestureUnlock.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		427778201BFD5D1700AA5C41 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		42331F731BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uexGestureUnlockConfiguration.h; sourceTree = "<group>"; };
+		42331F741BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uexGestureUnlockConfiguration.m; sourceTree = "<group>"; };
+		42331F761BFDC01C0061A9C4 /* UIColor+HtmlColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HtmlColor.h"; sourceTree = "<group>"; };
+		42331F771BFDC01C0061A9C4 /* UIColor+HtmlColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HtmlColor.m"; sourceTree = "<group>"; };
+		42331F791BFDCBDE0061A9C4 /* uexGestureUnlockCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uexGestureUnlockCenter.h; sourceTree = "<group>"; };
+		42331F7A1BFDCBDE0061A9C4 /* uexGestureUnlockCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uexGestureUnlockCenter.m; sourceTree = "<group>"; };
+		42331F7F1BFDD5E50061A9C4 /* uexGestureUnlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uexGestureUnlockView.h; sourceTree = "<group>"; };
+		42331F801BFDD5E50061A9C4 /* uexGestureUnlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uexGestureUnlockView.m; sourceTree = "<group>"; };
+		427778221BFD5D1700AA5C41 /* libEUExGestureUnlock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEUExGestureUnlock.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4277782E1BFD5DAB00AA5C41 /* EUExGestureUnlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExGestureUnlock.h; sourceTree = "<group>"; };
+		4277782F1BFD5DAB00AA5C41 /* EUExGestureUnlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EUExGestureUnlock.m; sourceTree = "<group>"; };
+		4277783F1BFD6B8B00AA5C41 /* EUExBase+Bundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EUExBase+Bundle.h"; sourceTree = "<group>"; };
+		427778401BFD6B8B00AA5C41 /* EUExBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBase.h; sourceTree = "<group>"; };
+		427778411BFD6B8B00AA5C41 /* EUExBaseDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBaseDefine.h; sourceTree = "<group>"; };
+		427778421BFD6B8B00AA5C41 /* EUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUtility.h; sourceTree = "<group>"; };
+		427778431BFD6B8B00AA5C41 /* WidgetOneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WidgetOneDelegate.h; sourceTree = "<group>"; };
+		427778511BFD6BBE00AA5C41 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		427778521BFD6BBE00AA5C41 /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONParser.h; sourceTree = "<group>"; };
+		427778531BFD6BBE00AA5C41 /* MD5Digest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5Digest.h; sourceTree = "<group>"; };
+		427778541BFD6BBE00AA5C41 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
+		427778551BFD6BBE00AA5C41 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
+		427778561BFD6BBE00AA5C41 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
+		427778571BFD6BBE00AA5C41 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		427778581BFD6BBE00AA5C41 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		427778591BFD6BBE00AA5C41 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		4277785A1BFD6BBE00AA5C41 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4277781F1BFD5D1700AA5C41 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		427778191BFD5D1700AA5C41 = {
+			isa = PBXGroup;
+			children = (
+				427778241BFD5D1700AA5C41 /* EUExGestureUnlock */,
+				427778231BFD5D1700AA5C41 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		427778231BFD5D1700AA5C41 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				427778221BFD5D1700AA5C41 /* libEUExGestureUnlock.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		427778241BFD5D1700AA5C41 /* EUExGestureUnlock */ = {
+			isa = PBXGroup;
+			children = (
+				4277784F1BFD6BBE00AA5C41 /* sourceCode */,
+				4277783E1BFD6B8B00AA5C41 /* engineHeader */,
+				4277782E1BFD5DAB00AA5C41 /* EUExGestureUnlock.h */,
+				4277782F1BFD5DAB00AA5C41 /* EUExGestureUnlock.m */,
+			);
+			path = EUExGestureUnlock;
+			sourceTree = "<group>";
+		};
+		4277783E1BFD6B8B00AA5C41 /* engineHeader */ = {
+			isa = PBXGroup;
+			children = (
+				4277783F1BFD6B8B00AA5C41 /* EUExBase+Bundle.h */,
+				427778401BFD6B8B00AA5C41 /* EUExBase.h */,
+				427778411BFD6B8B00AA5C41 /* EUExBaseDefine.h */,
+				427778421BFD6B8B00AA5C41 /* EUtility.h */,
+				427778431BFD6B8B00AA5C41 /* WidgetOneDelegate.h */,
+			);
+			path = engineHeader;
+			sourceTree = "<group>";
+		};
+		4277784F1BFD6BBE00AA5C41 /* sourceCode */ = {
+			isa = PBXGroup;
+			children = (
+				427778501BFD6BBE00AA5C41 /* JSON */,
+				42331F761BFDC01C0061A9C4 /* UIColor+HtmlColor.h */,
+				42331F771BFDC01C0061A9C4 /* UIColor+HtmlColor.m */,
+				4277785A1BFD6BBE00AA5C41 /* PrefixHeader.pch */,
+				42331F731BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.h */,
+				42331F741BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.m */,
+				42331F7F1BFDD5E50061A9C4 /* uexGestureUnlockView.h */,
+				42331F801BFDD5E50061A9C4 /* uexGestureUnlockView.m */,
+				42331F791BFDCBDE0061A9C4 /* uexGestureUnlockCenter.h */,
+				42331F7A1BFDCBDE0061A9C4 /* uexGestureUnlockCenter.m */,
+			);
+			path = sourceCode;
+			sourceTree = "<group>";
+		};
+		427778501BFD6BBE00AA5C41 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				427778511BFD6BBE00AA5C41 /* JSON.h */,
+				427778521BFD6BBE00AA5C41 /* JSONParser.h */,
+				427778531BFD6BBE00AA5C41 /* MD5Digest.h */,
+				427778541BFD6BBE00AA5C41 /* NSObject+SBJSON.h */,
+				427778551BFD6BBE00AA5C41 /* NSString+SBJSON.h */,
+				427778561BFD6BBE00AA5C41 /* SBJSON.h */,
+				427778571BFD6BBE00AA5C41 /* SBJsonBase.h */,
+				427778581BFD6BBE00AA5C41 /* SBJsonParser.h */,
+				427778591BFD6BBE00AA5C41 /* SBJsonWriter.h */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		427778211BFD5D1700AA5C41 /* EUExGestureUnlock */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4277782B1BFD5D1700AA5C41 /* Build configuration list for PBXNativeTarget "EUExGestureUnlock" */;
+			buildPhases = (
+				4277781E1BFD5D1700AA5C41 /* Sources */,
+				4277781F1BFD5D1700AA5C41 /* Frameworks */,
+				427778201BFD5D1700AA5C41 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EUExGestureUnlock;
+			productName = EUExGestureUnlock;
+			productReference = 427778221BFD5D1700AA5C41 /* libEUExGestureUnlock.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4277781A1BFD5D1700AA5C41 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = AppCan;
+				TargetAttributes = {
+					427778211BFD5D1700AA5C41 = {
+						CreatedOnToolsVersion = 7.1;
+					};
+				};
+			};
+			buildConfigurationList = 4277781D1BFD5D1700AA5C41 /* Build configuration list for PBXProject "EUExGestureUnlock" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 427778191BFD5D1700AA5C41;
+			productRefGroup = 427778231BFD5D1700AA5C41 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				427778211BFD5D1700AA5C41 /* EUExGestureUnlock */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4277781E1BFD5D1700AA5C41 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42331F811BFDD5E50061A9C4 /* uexGestureUnlockView.m in Sources */,
+				427778301BFD5DAB00AA5C41 /* EUExGestureUnlock.m in Sources */,
+				42331F7B1BFDCBDE0061A9C4 /* uexGestureUnlockCenter.m in Sources */,
+				42331F751BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.m in Sources */,
+				42331F781BFDC01C0061A9C4 /* UIColor+HtmlColor.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		427778291BFD5D1700AA5C41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4277782A1BFD5D1700AA5C41 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4277782C1BFD5D1700AA5C41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = $SRCROOT/uexGestureUnlock;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = $SRCROOT/EUExGestureUnlock/sourceCode/PrefixHeader.pch;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		4277782D1BFD5D1700AA5C41 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = $SRCROOT/uexGestureUnlock;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = $SRCROOT/EUExGestureUnlock/sourceCode/PrefixHeader.pch;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4277781D1BFD5D1700AA5C41 /* Build configuration list for PBXProject "EUExGestureUnlock" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				427778291BFD5D1700AA5C41 /* Debug */,
+				4277782A1BFD5D1700AA5C41 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4277782B1BFD5D1700AA5C41 /* Build configuration list for PBXNativeTarget "EUExGestureUnlock" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4277782C1BFD5D1700AA5C41 /* Debug */,
+				4277782D1BFD5D1700AA5C41 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4277781A1BFD5D1700AA5C41 /* Project object */;
+}
