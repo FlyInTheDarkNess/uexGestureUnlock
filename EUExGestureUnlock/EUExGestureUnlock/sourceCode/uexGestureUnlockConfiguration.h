@@ -46,6 +46,7 @@ extern NSString *const kUexGestureUnlockConfigurationSaveGestureCodeKey;
 @property (nonatomic,strong)NSString *setSuccessText;//设置成功的提示文字
 @property (nonatomic,strong)NSString *verifyErrorText;//验证手势密码失败的提示文字
 
+@property (nonatomic,assign)NSTimeInterval errorRemainInterval;//错误状态的保留时间
 
 +(instancetype)defaultConfiguration;
 @end

@@ -43,6 +43,9 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockVerifyResult) {
 };
 typedef void (^uexGestureUnlockVerifyResultBlock) (uexGestureUnlockVerifyResult);
 
+
+
+
 @interface uexGestureUnlockCenter : NSObject
 @property (nonatomic,strong)uexGestureUnlockConfiguration *config;
 @property (nonatomic,assign)CGRect gestureUnlockViewFrame;

@@ -45,6 +45,8 @@ NSString *const kUexGestureUnlockConfigurationSaveGestureCodeKey=@"kUexGestureUn
         config.drawAgainErrorText=@"与上次绘制不一致，请重新绘制";//再次绘制的图案不一致的提示文字
         config.setSuccessText=@"设置成功";//设置成功的提示文字
         config.verifyErrorText=@"密码错误";//验证手势密码失败的提示文字
+        
+        config.errorRemainInterval=1;//错误状态，保留1s
 
     }
     return config;
