@@ -1,6 +1,6 @@
 /**
  *
- *	@file   	: uexGestureUnlockDrawView.m  in EUExGestureUnlock Project
+ *	@file   	: uexGestureUnlockTouchView.m  in EUExGestureUnlock Project
  *
  *	@author 	: CeriNo 
  * 
@@ -21,60 +21,60 @@
  *
  */
 
-#import "uexGestureUnlockDrawView.h"
+#import "uexGestureUnlockTouchView.h"
 #import "uexGestureUnlockCircle.h"
-#import "uexGestureUnlockConfiguration.h"
+#import "uexGestureUnlockViewController.h"
 
 
 static CGFloat kCircleConnectLineWidth =1;//连线宽度
 
 
 
-@interface uexGestureUnlockDrawView ()
+@interface uexGestureUnlockTouchView ()
 @property (nonatomic,assign)BOOL needReset;//触摸事件结束之后才需要reset
 @property (nonatomic,assign)CGPoint currentPoint;
-
+//这个command会在触摸事件结束后exeute密码数组，sendNext验证结果(YES/NO)
+@property (nonatomic,weak)RACCommand *verifyResultCommand;
+//
+@property (nonatomic,weak)RACSubject *touchStartStream;
 @end
-@implementation uexGestureUnlockDrawView
+@implementation uexGestureUnlockTouchView
 
 
 
-#pragma mark - 初始化
-- (instancetype)initWithConfiguration:(uexGestureUnlockConfiguration *)config
-                          isShowArrow:(BOOL)showArrow
-                           sideLength:(CGFloat)sideLength
-                  verifyResultCommand:(RACCommand *)verifyResultCommand
-{
-    self = [super initWithConfiguration:config
-                            isShowArrow:showArrow
-                             sideLength:sideLength];
-    if (self) {
-        self.verifyResultCommand=verifyResultCommand;
-        //配置verifyResultCommand
-        [[self.verifyResultCommand executionSignals] subscribeNext:^(RACSignal *execution) {
-            [execution subscribeNext:^(id x) {
-                BOOL verifyResult = [x boolValue];
-                if(verifyResult){
-                    //验证成功，直接回到初始状态
+#pragma mark - 绑定ViewController
+
+
+-(void)combineWithViewController:(uexGestureUnlockViewController *)controller{
+    [super combineWithViewController:controller];
+    self.verifyResultCommand=controller.verifyResultCommand;
+    //配置verifyResultCommand
+    @weakify(self);
+    [[self.verifyResultCommand executionSignals] subscribeNext:^(RACSignal *execution) {
+        [execution subscribeNext:^(id x) {
+            @strongify(self);
+            BOOL verifyResult = [x boolValue];
+            if(verifyResult){
+                //验证成功，直接回到初始状态
+                [self reset];
+            }else{
+                //验证失败，显示错误情况
+                [[self.selectedCircles rac_sequence]
+                 all:^BOOL(uexGestureUnlockCircle *circle) {//把所有选中的圆置为error
+                     circle.status=uexGestureUnlockCircleStatusError;
+                     return YES;
+                 }];
+                [self setNeedsDisplay];
+                //经过错误保留时间后，回到初始状态
+                [[RACScheduler scheduler] afterDelay:self.config.errorRemainInterval schedule:^{
                     [self reset];
-                }else{
-                    //验证失败，显示错误情况
-                    [[self.selectedCircles rac_sequence]
-                     all:^BOOL(uexGestureUnlockCircle *circle) {//把所有选中的圆置为error
-                         circle.status=uexGestureUnlockCircleStatusError;
-                         return YES;
-                     }];
-                    [self setNeedsDisplay];
-                    //经过错误保留时间后，回到初始状态
-                    [[RACScheduler scheduler] afterDelay:self.config.errorRemainInterval schedule:^{
-                        [self reset];
-                    }];
-                }
-            }];
+                }];
+            }
         }];
-    }
-    return self;
+    }];
+    self.touchStartStream=controller.touchStartStream;
 }
+
 -(uexGestureUnlockCircle *)getCircle{
     return [[uexGestureUnlockCircle alloc]
             initWithType:uexGestureUnlockCircleTypeGestureCircle
@@ -123,6 +123,7 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
 #pragma mark - 触摸事件
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self reset];//开始触摸事件时，先重置
+    [self.touchStartStream sendNext:nil];
     [self dealWithTouchs:touches];
 }
 -(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -139,7 +140,8 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
     [self.verifyResultCommand execute:codeArray];
 }
 -(void)dealWithTouchs:(NSSet<UITouch *> *)touches{
-    CGPoint point=[[touches anyObject] locationInView:self];//触摸点
+    UITouch *touch=[touches anyObject];
+    CGPoint point=[touch locationInView:self];//触摸点
     [[self.subviews rac_sequence]
      any:^BOOL(uexGestureUnlockCircle *circle) {
          if(CGRectContainsPoint(circle.frame, point)){//触摸点在某个圆中

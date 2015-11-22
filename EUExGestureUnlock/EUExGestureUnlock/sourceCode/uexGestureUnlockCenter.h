@@ -52,7 +52,7 @@ typedef void (^uexGestureUnlockVerifyResultBlock) (uexGestureUnlockVerifyResult)
 
 
 +(instancetype)sharedCenter;
--(BOOL)isGestureCodeSet;
+
 -(void)setUpGesturCodeInEBrowserView:(EBrowserView *)eBrowserView callback:(uexGestureUnlockSetUpGestureCodeBlock)callback;
 -(void)verifyGestureWithResult:(uexGestureUnlockVerifyResultBlock)result;
 -(void)removeGestureUnlockView;

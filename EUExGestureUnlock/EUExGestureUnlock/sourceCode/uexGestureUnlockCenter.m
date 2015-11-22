@@ -22,10 +22,9 @@
  */
 
 #import "uexGestureUnlockCenter.h"
-#import "uexGestureUnlockView.h"
+
 @interface uexGestureUnlockCenter()
 
-@property (nonatomic,strong)uexGestureUnlockView *unlockView;
 
 @end
 @implementation uexGestureUnlockCenter
@@ -51,34 +50,7 @@
 
 
 
-#pragma mark - UserDefaults
--(NSString *)getGestureCode{
-    return [[NSUserDefaults standardUserDefaults] stringForKey:kUexGestureUnlockConfigurationSaveGestureCodeKey];
-}
--(void)saveGestureCode:(NSString *)code{
-    [[NSUserDefaults standardUserDefaults] setValue:code forKey:kUexGestureUnlockConfigurationSaveGestureCodeKey];
-    [[NSUserDefaults standardUserDefaults]synchronize];
-}
--(void)removeGestureCode{
-    [[NSUserDefaults standardUserDefaults]removeObjectForKey:kUexGestureUnlockConfigurationSaveGestureCodeKey];
-}
 
-#pragma mark - public method
-
--(BOOL)isGestureCodeSet{
-    NSString *gestureCode=[self getGestureCode];
-    if(!gestureCode ||[gestureCode length]==0){
-        return NO;
-    }else{
-        return YES;
-    }
-}
--(void)removeGestureUnlockView{
-    if(self.unlockView){
-        [self.unlockView removeFromSuperview];
-        self.unlockView=nil;
-    }
-}
 -(void)verifyGestureWithResult:(uexGestureUnlockVerifyResultBlock)result{
 #pragma warning TODO
 }

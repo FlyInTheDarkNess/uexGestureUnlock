@@ -1,10 +1,10 @@
 /**
  *
- *	@file   	: uexGestureUnlockInfoView.h  in EUExGestureUnlock Project
+ *	@file   	: uexGestureUnlockShakeLabel.h  in EUExGestureUnlock Project
  *
- *	@author 	: CeriNo 
- * 
- *	@date   	: Created on 15/11/20
+ *	@author 	: CeriNo
+ *
+ *	@date   	: Created on 15/11/21
  *
  *	@copyright 	: 2015 The AppCan Open Source Project.
  *
@@ -21,11 +21,8 @@
  *
  */
 
-
-#import <Foundation/Foundation.h>
-#import "uexGestureUnlockBaseCircleView.h"
-#import "uexGestureUnlockCircle.h"
-@interface uexGestureUnlockInfoView : uexGestureUnlockBaseCircleView
--(void)SelectCircles:(NSArray<NSNumber *> *)indices;
--(void)deselectAll;
+#import <UIKit/UIKit.h>
+@class uexGestureUnlockViewController;
+@interface uexGestureUnlockShakeLabel : UILabel
+-(void)combineWithViewController:(uexGestureUnlockViewController *)controller;
 @end

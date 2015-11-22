@@ -1,6 +1,6 @@
 /**
  *
- *	@file   	: uexGestureUnlockDrawView.h  in EUExGestureUnlock Project
+ *	@file   	: uexGestureUnlockTouchView.h  in EUExGestureUnlock Project
  *
  *	@author 	: CeriNo 
  * 
@@ -23,25 +23,8 @@
 
 
 #import <Foundation/Foundation.h>
-#import <ReactiveCocoa/ReactiveCocoa.h>
-#import "uexGestureUnlockBaseView.h"
-@class uexGestureUnlockConfiguration;
+#import "uexGestureUnlockBaseCircleView.h"
 
-
-
-@interface uexGestureUnlockDrawView : uexGestureUnlockBaseView
-
-
-
-//这个command会在触摸事件结束后exeute密码数组，sendNext验证结果(YES/NO)
-@property (nonatomic,weak)RACCommand *verifyResultCommand;
-
-
-
-
--(instancetype)initWithConfiguration:(uexGestureUnlockConfiguration *)config
-                         isShowArrow:(BOOL)showArrow
-                          sideLength:(CGFloat)sideLength //frame的边长，计算圆的大小需要
-                 verifyResultCommand:(RACCommand *)verifyResultCommand;
+@interface uexGestureUnlockTouchView : uexGestureUnlockBaseCircleView
 
 @end

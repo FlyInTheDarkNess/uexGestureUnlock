@@ -1,6 +1,6 @@
 /**
  *
- *	@file   	: uexGestureUnlockBaseView.m  in EUExGestureUnlock Project
+ *	@file   	: uexGestureUnlockBaseCircleView.m  in EUExGestureUnlock Project
  *
  *	@author 	: CeriNo 
  * 
@@ -21,33 +21,33 @@
  *
  */
 
-#import "uexGestureUnlockBaseView.h"
+#import "uexGestureUnlockBaseCircleView.h"
 #import "uexGestureUnlockCircle.h"
-#import "uexGestureUnlockConfiguration.h"
-#import <ReactiveCocoa/ReactiveCocoa.h>
-@implementation uexGestureUnlockBaseView
+#import "uexGestureUnlockViewController.h"
+@implementation uexGestureUnlockBaseCircleView
 
 
 
-- (instancetype)initWithConfiguration:(uexGestureUnlockConfiguration *)config
-                          isShowArrow:(BOOL)showArrow
-                           sideLength:(CGFloat)sideLength
+- (instancetype)initWithSideLength:(CGFloat)sideLength
 {
     self = [super init];
     if (self) {
-        self.config=config;
         self.sideLength=sideLength;
-        self.showArrow=showArrow;
         self.circles=[NSMutableArray array];
         self.selectedCircles=[NSMutableArray array];
-        self.backgroundColor=config.backgroundColor;
-        for (int i=0; i<9; i++) {
-            [self addSubview:[self getCircle]];
-        }
-        
     }
     return self;
 }
+
+-(void)combineWithViewController:(uexGestureUnlockViewController *)controller{
+    self.config=controller.config;
+    self.backgroundColor=self.config.backgroundColor;
+    for (int i=0; i<9; i++) {
+        [self addSubview:[self getCircle]];
+    }
+}
+
+
 -(uexGestureUnlockCircle *)getCircle{
     return [[uexGestureUnlockCircle alloc] init];
 }
@@ -71,6 +71,7 @@
          CGFloat y=radius*(1+4*col);
          CGRect frame = CGRectMake(x, y, radius*2, radius*2);
          circle.frame=frame;
+         circle.showArrow=self.showArrow;
          [self.circles addObject:circle];
          return YES;
      }];

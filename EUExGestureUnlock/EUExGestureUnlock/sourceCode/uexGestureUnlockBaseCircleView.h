@@ -1,6 +1,6 @@
 /**
  *
- *	@file   	: uexGestureUnlockBaseView.h  in EUExGestureUnlock Project
+ *	@file   	: uexGestureUnlockBaseCircleView.h  in EUExGestureUnlock Project
  *
  *	@author 	: CeriNo 
  * 
@@ -25,22 +25,22 @@
 #import <Foundation/Foundation.h>
 
 @class uexGestureUnlockCircle;
+@class uexGestureUnlockViewController;
 @class uexGestureUnlockConfiguration;
-
 /**
  *  @abstract 包含9个uexGestureCircle的view
  *  @note 这个view的frame是个正方形
  */
-@interface uexGestureUnlockBaseView : UIView
+@interface uexGestureUnlockBaseCircleView : UIView
 @property (nonatomic,strong)NSMutableArray<uexGestureUnlockCircle *> *circles;
 @property (nonatomic,strong)NSMutableArray<uexGestureUnlockCircle *> *selectedCircles;
 @property (nonatomic,weak)uexGestureUnlockConfiguration *config;
 @property (nonatomic,assign)CGFloat sideLength;//需要知道边长，用于排列圆
 @property (nonatomic,assign)BOOL showArrow;
--(instancetype)initWithConfiguration:(uexGestureUnlockConfiguration *)config
-                         isShowArrow:(BOOL)showArrow
-                          sideLength:(CGFloat)sideLength;
 
+
+-(instancetype)initWithSideLength:(CGFloat)sideLength;
+-(void)combineWithViewController:(uexGestureUnlockViewController *)controller;
 
 //覆写这个方法以定制放到view中的circle;
 -(uexGestureUnlockCircle *)getCircle;

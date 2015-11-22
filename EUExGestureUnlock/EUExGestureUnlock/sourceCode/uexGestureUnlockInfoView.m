@@ -23,12 +23,50 @@
 
 #import "uexGestureUnlockInfoView.h"
 #import "uexGestureUnlockCircle.h"
+#import "uexGestureUnlockViewController.h"
 @implementation uexGestureUnlockInfoView
--(uexGestureUnlockCircle *)getCircle{
-    return [[uexGestureUnlockCircle alloc]
-            initWithType:uexGestureUnlockCircleTypeInfoCircle
-            configuration:self.config];
+
+-(void)combineWithViewController:(uexGestureUnlockViewController *)controller{
+    @weakify(self);
+    [controller.verifyResultCommand.executionSignals subscribeNext:^(RACSignal *execution) {
+        [[execution
+          filter:^BOOL(id value) {
+              return ![value boolValue];
+          }]
+         subscribeNext:^(id x){
+             @strongify(self);
+             [self setSelectedCirclesStatus:uexGestureUnlockCircleStatusError];
+             [[RACScheduler scheduler] afterDelay:controller.config.errorRemainInterval schedule:^{
+                 [self setSelectedCirclesStatus:uexGestureUnlockCircleStatusSelected];
+             }];
+             
+         }];
+    }];
+    [controller.touchStartStream subscribeNext:^(id x) {
+        @strongify(self);
+        [self setSelectedCirclesStatus:uexGestureUnlockCircleStatusSelected];
+    }];
 }
+-(void)SelectCircles:(NSArray<NSNumber *> *)indices{
+    [self deselectAll];
+    for (NSNumber *index in indices) {
+        [self.selectedCircles addObject:[self.circles objectAtIndex:[index integerValue]]];
+    }
+    [self setSelectedCirclesStatus:uexGestureUnlockCircleStatusSelected];
 
-
+         
+}
+-(void)setSelectedCirclesStatus:(uexGestureUnlockCircleStatus)status{
+    [self.selectedCircles.rac_sequence all:^BOOL(uexGestureUnlockCircle *circle) {
+        circle.status=status;
+        return YES;
+    }];
+}
+-(void)deselectAll{
+    if([self.selectedCircles count]==0){
+        return;
+    }
+    [self setSelectedCirclesStatus:uexGestureUnlockCircleStatusNormal];
+    [self.selectedCircles removeAllObjects];
+}
 @end
