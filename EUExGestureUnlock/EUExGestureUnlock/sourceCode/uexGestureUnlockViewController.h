@@ -26,29 +26,39 @@
 #import "uexGestureUnlockConfiguration.h"
 
 
+#define UEXGU_SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define UEXGU_SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
 typedef NS_ENUM(NSInteger,uexGestureUnlockMode) {
-    uexGestureUnlockModeUnknown,
-    uexGestureUnlockModeSettingInitialInput,//设置新密码，首次输入
-    uexGestureUnlockModeSettingCheckingInput,//设置新密码，第二次输入
-    uexGestureUnlockModeVerifying,//验证密码
+    uexGestureUnlockModeCreateCode,//设置新密码
+    uexGestureUnlockModeVerifyCode,//验证密码
+    uexGestureUnlockModeVerifyThenCreateCode,//先验证密码再设置新密码
 };
 
-typedef NS_ENUM(NSInteger,uexGestureUnlockCodeSettingProgress) {
-    uexGestureUnlockCodeSettingBeginInitialInput,
-    uexGestureUnlockCodeSettingErrorLengthInput,
-    uexGestureUnlockCodeSettingCheckInput,
-    uexGestureUnlockCodeSettingCheckError,
-    uexGestureUnlockCodeSettingSuccess,
-    uexGestureUnlockCodeSettingCancel,
+typedef NS_ENUM(NSInteger,uexGestureUnlockEvent) {
+    uexGestureUnlockCodeVerificationBegin,
+    uexGestureUnlockCodeVerificationFailed,
+    uexGestureUnlockCodeVerificationCancelled,
+    uexGestureUnlockCodeVerificationSucceed,
+    uexGestureUnlockCodeCreationBegin,
+    uexGestureUnlockCodeCreationInputInvalid,
+    uexGestureUnlockCodeCreationCheckInput,
+    uexGestureUnlockCodeCreationCheckFailed,
+    uexGestureUnlockCodeCreationCompleted,
+    uexGestureUnlockCodeCreationCancelled,
 };
 
-typedef void (^uexGestureUnlockSettingCodeProgressBlock)(uexGestureUnlockCodeSettingProgress pregress);
-typedef void (^uexGestureUnlockVerifyingCodeResultBlock)(BOOL isSuccess,NSInteger trialTimes);
+typedef void (^uexGestureUnlockProgressBlock)(uexGestureUnlockEvent event);
+typedef void (^uexGestureUnlockCompletionBlock)(BOOL isCancelled,NSError *error);
+
+
 @interface uexGestureUnlockViewController : UIViewController
+
+@property (nonatomic,assign)uexGestureUnlockMode mode;
+
 
 
 @property (nonatomic,strong)uexGestureUnlockConfiguration *config;
-@property (nonatomic,assign)uexGestureUnlockMode mode;
 
 /**
  *  execute  : NSArray<NSNumber *>* code
@@ -62,11 +72,16 @@ typedef void (^uexGestureUnlockVerifyingCodeResultBlock)(BOOL isSuccess,NSIntege
  */
 @property (nonatomic,strong)RACSubject *touchStartStream;
 
-//设置密码用的初始化方法
--(instancetype)initWithConfiguration:(uexGestureUnlockConfiguration*)config
-                            progress:(uexGestureUnlockSettingCodeProgressBlock)callback;
-//验证密码用的初始化方法
--(instancetype)initWithWithConfiguration:(uexGestureUnlockConfiguration*)config
-                                  result:(uexGestureUnlockVerifyingCodeResultBlock)callback;
+
+
+
+- (instancetype)initWithConfiguration:(uexGestureUnlockConfiguration *)config
+                                 mode:(uexGestureUnlockMode)mode
+                             progress:(uexGestureUnlockProgressBlock)progressBlock
+                           completion:(uexGestureUnlockCompletionBlock)completionBlock;
 +(BOOL)isGestureCodeSet;
+
+
+
+
 @end

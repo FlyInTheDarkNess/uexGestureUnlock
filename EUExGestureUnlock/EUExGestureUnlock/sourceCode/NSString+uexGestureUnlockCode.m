@@ -1,10 +1,10 @@
 /**
  *
- *	@file   	: uexGestureUnlockShakeLabel.h  in EUExGestureUnlock Project
+ *	@file   	: NSString+uexGestureUnlockCode.m  in EUExGestureUnlock Project
  *
  *	@author 	: CeriNo
  *
- *	@date   	: Created on 15/11/21
+ *	@date   	: Created on 15/11/23
  *
  *	@copyright 	: 2015 The AppCan Open Source Project.
  *
@@ -20,9 +20,14 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+#import "NSString+uexGestureUnlockCode.h"
 
-#import <UIKit/UIKit.h>
-@class uexGestureUnlockViewController;
-@interface uexGestureUnlockShakeLabel : UILabel
--(void)combineWithViewController:(__kindof uexGestureUnlockViewController *)controller;
+@implementation NSString (uexGestureUnlockCode)
++ (instancetype)uexGU_stringFromCodeArray:(NSArray<NSNumber *> *)codeArray{
+    NSMutableString *code=[NSMutableString string];
+    for(int i=0;i<[codeArray count];i++){
+        [code appendString:[codeArray[i] stringValue]];
+    }
+    return code;
+}
 @end

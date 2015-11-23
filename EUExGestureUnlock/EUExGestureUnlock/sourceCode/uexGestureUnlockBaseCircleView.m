@@ -41,7 +41,7 @@
 
 -(void)combineWithViewController:(uexGestureUnlockViewController *)controller{
     self.config=controller.config;
-    self.backgroundColor=self.config.backgroundColor;
+    self.backgroundColor=[UIColor clearColor];
     for (int i=0; i<9; i++) {
         [self addSubview:[self getCircle]];
     }

@@ -45,14 +45,18 @@ NSString *const kUexGestureUnlockConfigurationSaveGestureCodeKey=@"kUexGestureUn
         config.codeLengthErrorPrompt=@"请至少连续绘制%ld个点";//密码长度低于最短长度的错误提示文字
         config.checkInputPrompt=@"请再次绘制手势密码";//确认手势手势密码，要求再次绘制的提示文字
         config.checkErrorPrompt=@"与首次绘制不一致，请再次绘制";//再次绘制的图案不一致的提示文字
-        config.setSuccessText=@"手势密码设置成功";//设置成功的提示文字
-        config.verifyPrompt=@"请验证手势密码";//验证手势前的提示文字
+        config.setSuccessPrompt=@"手势密码设置成功";//设置成功的提示文字
+        config.verifyBeginPrompt=@"请验证手势密码";//验证手势前的提示文字
         config.verifyErrorPrompt=@"验证错误!您还可以尝试%ld次";//验证手势密码失败的提示文字
-        config.verifySuccessText=@"验证通过";//验证手势密码成功的提示文字
+        config.verifySuccessPrompt=@"验证通过";//验证手势密码成功的提示文字
         
         
         config.errorRemainInterval=1;//错误状态，保留1s
         config.successRemainInterval=0.2;
+        config.showIcon=YES;
+        
+        config.backgroundImage=nil;
+        config.iconImage=nil;
 
     }
     return config;

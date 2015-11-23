@@ -11,12 +11,14 @@
 		0E6A3AC41C000C120014EE3B /* uexGestureUnlockShakeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6A3AC31C000C120014EE3B /* uexGestureUnlockShakeLabel.m */; };
 		42331F751BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 42331F741BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.m */; };
 		42331F781BFDC01C0061A9C4 /* UIColor+HtmlColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 42331F771BFDC01C0061A9C4 /* UIColor+HtmlColor.m */; };
-		42331F7B1BFDCBDE0061A9C4 /* uexGestureUnlockCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 42331F7A1BFDCBDE0061A9C4 /* uexGestureUnlockCenter.m */; };
 		42331F811BFDD5E50061A9C4 /* uexGestureUnlockBaseCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42331F801BFDD5E50061A9C4 /* uexGestureUnlockBaseCircleView.m */; };
 		42331F841BFDD8080061A9C4 /* uexGestureUnlockCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 42331F831BFDD8080061A9C4 /* uexGestureUnlockCircle.m */; };
 		42331F871BFEAE3D0061A9C4 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42331F861BFEAE3D0061A9C4 /* ReactiveCocoa.framework */; };
 		42331F8A1BFEC37C0061A9C4 /* uexGestureUnlockTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42331F891BFEC37C0061A9C4 /* uexGestureUnlockTouchView.m */; };
 		42331F8D1BFF204E0061A9C4 /* uexGestureUnlockInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42331F8C1BFF204E0061A9C4 /* uexGestureUnlockInfoView.m */; };
+		4247B0A91C02AC390048CCDF /* NSString+uexGestureUnlockCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247B0A81C02AC390048CCDF /* NSString+uexGestureUnlockCode.m */; };
+		4247B0AC1C02BE070048CCDF /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4247B0AB1C02BE060048CCDF /* Masonry.framework */; };
+		4247B0AF1C0323210048CCDF /* uexGestureUnlockError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247B0AE1C0323210048CCDF /* uexGestureUnlockError.m */; };
 		427778301BFD5DAB00AA5C41 /* EUExGestureUnlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 4277782F1BFD5DAB00AA5C41 /* EUExGestureUnlock.m */; };
 /* End PBXBuildFile section */
 
@@ -41,8 +43,6 @@
 		42331F741BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uexGestureUnlockConfiguration.m; sourceTree = "<group>"; };
 		42331F761BFDC01C0061A9C4 /* UIColor+HtmlColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HtmlColor.h"; sourceTree = "<group>"; };
 		42331F771BFDC01C0061A9C4 /* UIColor+HtmlColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HtmlColor.m"; sourceTree = "<group>"; };
-		42331F791BFDCBDE0061A9C4 /* uexGestureUnlockCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uexGestureUnlockCenter.h; sourceTree = "<group>"; };
-		42331F7A1BFDCBDE0061A9C4 /* uexGestureUnlockCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uexGestureUnlockCenter.m; sourceTree = "<group>"; };
 		42331F7F1BFDD5E50061A9C4 /* uexGestureUnlockBaseCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uexGestureUnlockBaseCircleView.h; sourceTree = "<group>"; };
 		42331F801BFDD5E50061A9C4 /* uexGestureUnlockBaseCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uexGestureUnlockBaseCircleView.m; sourceTree = "<group>"; };
 		42331F821BFDD8080061A9C4 /* uexGestureUnlockCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uexGestureUnlockCircle.h; sourceTree = "<group>"; };
@@ -52,6 +52,11 @@
 		42331F891BFEC37C0061A9C4 /* uexGestureUnlockTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uexGestureUnlockTouchView.m; sourceTree = "<group>"; };
 		42331F8B1BFF204E0061A9C4 /* uexGestureUnlockInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uexGestureUnlockInfoView.h; sourceTree = "<group>"; };
 		42331F8C1BFF204E0061A9C4 /* uexGestureUnlockInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uexGestureUnlockInfoView.m; sourceTree = "<group>"; };
+		4247B0A71C02AC390048CCDF /* NSString+uexGestureUnlockCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+uexGestureUnlockCode.h"; sourceTree = "<group>"; };
+		4247B0A81C02AC390048CCDF /* NSString+uexGestureUnlockCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+uexGestureUnlockCode.m"; sourceTree = "<group>"; };
+		4247B0AB1C02BE060048CCDF /* Masonry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Masonry.framework; sourceTree = "<group>"; };
+		4247B0AD1C0323210048CCDF /* uexGestureUnlockError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uexGestureUnlockError.h; sourceTree = "<group>"; };
+		4247B0AE1C0323210048CCDF /* uexGestureUnlockError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uexGestureUnlockError.m; sourceTree = "<group>"; };
 		427778221BFD5D1700AA5C41 /* libEUExGestureUnlock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEUExGestureUnlock.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4277782E1BFD5DAB00AA5C41 /* EUExGestureUnlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExGestureUnlock.h; sourceTree = "<group>"; };
 		4277782F1BFD5DAB00AA5C41 /* EUExGestureUnlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EUExGestureUnlock.m; sourceTree = "<group>"; };
@@ -77,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4247B0AC1C02BE070048CCDF /* Masonry.framework in Frameworks */,
 				42331F871BFEAE3D0061A9C4 /* ReactiveCocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,10 +132,13 @@
 		4277784F1BFD6BBE00AA5C41 /* sourceCode */ = {
 			isa = PBXGroup;
 			children = (
+				4247B0AB1C02BE060048CCDF /* Masonry.framework */,
 				42331F861BFEAE3D0061A9C4 /* ReactiveCocoa.framework */,
 				427778501BFD6BBE00AA5C41 /* JSON */,
 				42331F761BFDC01C0061A9C4 /* UIColor+HtmlColor.h */,
 				42331F771BFDC01C0061A9C4 /* UIColor+HtmlColor.m */,
+				4247B0A71C02AC390048CCDF /* NSString+uexGestureUnlockCode.h */,
+				4247B0A81C02AC390048CCDF /* NSString+uexGestureUnlockCode.m */,
 				4277785A1BFD6BBE00AA5C41 /* PrefixHeader.pch */,
 				42331F731BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.h */,
 				42331F741BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.m */,
@@ -145,8 +154,8 @@
 				0E6A3AC31C000C120014EE3B /* uexGestureUnlockShakeLabel.m */,
 				0E0107BC1BFF7237007B8873 /* uexGestureUnlockViewController.h */,
 				0E0107BD1BFF7237007B8873 /* uexGestureUnlockViewController.m */,
-				42331F791BFDCBDE0061A9C4 /* uexGestureUnlockCenter.h */,
-				42331F7A1BFDCBDE0061A9C4 /* uexGestureUnlockCenter.m */,
+				4247B0AD1C0323210048CCDF /* uexGestureUnlockError.h */,
+				4247B0AE1C0323210048CCDF /* uexGestureUnlockError.m */,
 			);
 			path = sourceCode;
 			sourceTree = "<group>";
@@ -224,13 +233,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				42331F811BFDD5E50061A9C4 /* uexGestureUnlockBaseCircleView.m in Sources */,
+				4247B0A91C02AC390048CCDF /* NSString+uexGestureUnlockCode.m in Sources */,
 				42331F8D1BFF204E0061A9C4 /* uexGestureUnlockInfoView.m in Sources */,
 				427778301BFD5DAB00AA5C41 /* EUExGestureUnlock.m in Sources */,
 				0E0107BE1BFF7237007B8873 /* uexGestureUnlockViewController.m in Sources */,
 				42331F841BFDD8080061A9C4 /* uexGestureUnlockCircle.m in Sources */,
-				42331F7B1BFDCBDE0061A9C4 /* uexGestureUnlockCenter.m in Sources */,
 				42331F8A1BFEC37C0061A9C4 /* uexGestureUnlockTouchView.m in Sources */,
 				42331F751BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.m in Sources */,
+				4247B0AF1C0323210048CCDF /* uexGestureUnlockError.m in Sources */,
 				0E6A3AC41C000C120014EE3B /* uexGestureUnlockShakeLabel.m in Sources */,
 				42331F781BFDC01C0061A9C4 /* UIColor+HtmlColor.m in Sources */,
 			);

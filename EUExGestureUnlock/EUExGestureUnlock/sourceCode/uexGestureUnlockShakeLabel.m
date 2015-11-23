@@ -29,7 +29,6 @@ static NSString *const kUexGestureUnlockShakeAnimationKey=@"kUexGestureUnlockSha
 
 @interface uexGestureUnlockShakeLabel()
 @property (nonatomic,weak)uexGestureUnlockConfiguration *config;
-@property (nonatomic,strong)RACDisposable *shakeAnimationDisposable;
 @end
 @implementation uexGestureUnlockShakeLabel
 
@@ -42,69 +41,29 @@ static NSString *const kUexGestureUnlockShakeAnimationKey=@"kUexGestureUnlockSha
 */
 -(void)combineWithViewController:(uexGestureUnlockViewController *)controller{
     self.config=controller.config;
-    self.backgroundColor=self.config.backgroundColor;
-    @weakify(self,controller);
+    self.backgroundColor=[UIColor clearColor];
+    @weakify(self);
     [controller.verifyResultCommand.executionSignals subscribeNext:^(RACSignal *execution) {
         [execution subscribeNext:^(id x){
-            @strongify(self,controller);
+            @strongify(self);
              BOOL verifyResult=[x boolValue];
             if(verifyResult){
-                [self verifySuccessInMode:controller.mode];
+                [self setTextColor:self.config.normalThemeColor];
             }else{
-                [self verifyFailInMode:controller.mode];
+                [self setTextColor:self.config.errorThemeColor];
+                [self shake];
             }
          }];
     }];
     [controller.touchStartStream subscribeNext:^(id x) {
         @strongify(self);
-        [self setText:[self getTouchingTextFromUnlockMode:controller.mode] color:self.config.normalThemeColor];
-        if(self.shakeAnimationDisposable){
-            [self.shakeAnimationDisposable dispose];
-            self.shakeAnimationDisposable=nil;
-        }
+        [self setTextColor:self.config.normalThemeColor];
+        [self.layer removeAllAnimations];
+
     }];
+    RAC(self,text)=[RACObserve(controller, prompt) distinctUntilChanged];
 }
 
-
-
-
-
--(void)verifySuccessInMode:(uexGestureUnlockMode)mode{
-    switch (mode) {
-        case uexGestureUnlockModeSettingInitialInput: {
-            [self setText:self.config.checkInputPrompt color:self.config.normalThemeColor];
-            break;
-        }
-        case uexGestureUnlockModeSettingCheckingInput: {
-            [self setText:self.config.setSuccessText color:self.config.normalThemeColor];
-            break;
-        }
-        case uexGestureUnlockModeVerifying: {
-            [self setText:self.config.verifySuccessText color:self.config.normalThemeColor];
-            break;
-        }
-    }
-}
-
--(void)verifyFailInMode:(uexGestureUnlockMode)mode{
-     NSString *errorText=[self getErrorTextFromUnlockMode:mode];
-     [self setText:errorText color:self.config.errorThemeColor];
-     [self shake];
-    @weakify(self);
-    RACSignal *errorRemainSignal=[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        @strongify(self);
-        [[RACScheduler scheduler] afterDelay:self.config.errorRemainInterval schedule:^{
-            [subscriber sendCompleted];
-        }];
-        return [RACDisposable disposableWithBlock:^{
-            [self.layer removeAllAnimations];
-        }];
-    }];
-    self.shakeAnimationDisposable=[errorRemainSignal subscribeCompleted:^{
-        @strongify(self);
-         [self setText:[self getTouchingTextFromUnlockMode:mode] color:self.config.normalThemeColor];
-    }];
-}
 
 
 -(void)shake{
@@ -119,41 +78,5 @@ static NSString *const kUexGestureUnlockShakeAnimationKey=@"kUexGestureUnlockSha
     [self.layer addAnimation:animation forKey:kUexGestureUnlockShakeAnimationKey];
 }
 
--(void)setText:(NSString *)text color:(UIColor *)color{
-    self.text=text;
-    self.textColor=color;
-}
--(NSString *)getErrorTextFromUnlockMode:(uexGestureUnlockMode)mode{
-    switch (mode) {
-        case uexGestureUnlockModeSettingInitialInput: {
-            return self.config.codeLengthErrorPrompt;
-            break;
-        }
-        case uexGestureUnlockModeSettingCheckingInput: {
-            return self.config.checkErrorPrompt;
-            break;
-        }
-        case uexGestureUnlockModeVerifying: {
-            return self.config.verifyErrorPrompt;
-            break;
-        }
 
-    }
-}
--(NSString *)getTouchingTextFromUnlockMode:(uexGestureUnlockMode)mode{
-    switch (mode) {
-        case uexGestureUnlockModeSettingInitialInput: {
-            return self.config.initialInputPrompt;
-            break;
-        }
-        case uexGestureUnlockModeSettingCheckingInput: {
-            return self.config.checkInputPrompt;
-            break;
-        }
-        case uexGestureUnlockModeVerifying: {
-            return self.config.verifyPrompt;
-            break;
-        }
-    }
-}
 @end

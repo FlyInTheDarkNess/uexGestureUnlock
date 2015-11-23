@@ -1,10 +1,10 @@
 /**
  *
- *	@file   	: uexGestureUnlockShakeLabel.h  in EUExGestureUnlock Project
+ *	@file   	: uexGestureUnlockError.h  in EUExGestureUnlock Project
  *
- *	@author 	: CeriNo
- *
- *	@date   	: Created on 15/11/21
+ *	@author 	: CeriNo 
+ * 
+ *	@date   	: Created on 15/11/23
  *
  *	@copyright 	: 2015 The AppCan Open Source Project.
  *
@@ -21,8 +21,13 @@
  *
  */
 
-#import <UIKit/UIKit.h>
-@class uexGestureUnlockViewController;
-@interface uexGestureUnlockShakeLabel : UILabel
--(void)combineWithViewController:(__kindof uexGestureUnlockViewController *)controller;
+
+#import <Foundation/Foundation.h>
+
+@interface uexGestureUnlockError : NSObject
+
++(NSError *)creationCancelled;
++(NSError *)verificationCancelled;
++(NSError *)maxTrialTimesExceeded;
+
 @end

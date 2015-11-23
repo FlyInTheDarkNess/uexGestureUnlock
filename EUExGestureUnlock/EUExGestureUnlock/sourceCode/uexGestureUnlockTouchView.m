@@ -34,9 +34,8 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
 @property (nonatomic,assign)BOOL needReset;//触摸事件结束之后才需要reset
 @property (nonatomic,assign)CGPoint currentPoint;
 //这个command会在触摸事件结束后exeute密码数组，sendNext验证结果(YES/NO)
-@property (nonatomic,weak)RACCommand *verifyResultCommand;
-//
-@property (nonatomic,weak)RACSubject *touchStartStream;
+@property (nonatomic,strong)RACSignal *touchStartSignal;
+@property (nonatomic,weak)uexGestureUnlockViewController *controller;
 @end
 @implementation uexGestureUnlockTouchView
 
@@ -47,10 +46,10 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
 
 -(void)combineWithViewController:(uexGestureUnlockViewController *)controller{
     [super combineWithViewController:controller];
-    self.verifyResultCommand=controller.verifyResultCommand;
+    self.controller=controller;
     //配置verifyResultCommand
     @weakify(self);
-    [[self.verifyResultCommand executionSignals] subscribeNext:^(RACSignal *execution) {
+    [[self.controller.verifyResultCommand executionSignals] subscribeNext:^(RACSignal *execution) {
         [execution subscribeNext:^(id x) {
             @strongify(self);
             BOOL verifyResult = [x boolValue];
@@ -72,7 +71,6 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
             }
         }];
     }];
-    self.touchStartStream=controller.touchStartStream;
 }
 
 -(uexGestureUnlockCircle *)getCircle{
@@ -123,7 +121,7 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
 #pragma mark - 触摸事件
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self reset];//开始触摸事件时，先重置
-    [self.touchStartStream sendNext:nil];
+    [self.controller.touchStartStream sendNext:nil];
     [self dealWithTouchs:touches];
 }
 -(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -137,7 +135,7 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
                             return @(circle.tag);
                         }]
                         array];
-    [self.verifyResultCommand execute:codeArray];
+    [self.controller.verifyResultCommand execute:codeArray];
 }
 -(void)dealWithTouchs:(NSSet<UITouch *> *)touches{
     UITouch *touch=[touches anyObject];
