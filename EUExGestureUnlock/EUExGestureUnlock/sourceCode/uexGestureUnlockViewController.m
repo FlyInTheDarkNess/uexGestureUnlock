@@ -35,10 +35,18 @@ static CGFloat kUexGestureUnlockPromptLabelFontSize=14;//PromptLabel的字体大
 static CGFloat kUexGestureUnlockActionButtonFontSize=10;//ActionButton的字体大小
 
 
+typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
+    uexGestureUnlockCodeVerificationSignal,
+    uexGestureUnlockCodeLengthCheckSignal,
+    uexGestureUnlockCodeEqualCheckSignal
+};
+
+
+
 
 @interface uexGestureUnlockViewController ()
 
-@property (nonatomic,strong)NSString *prompt;
+@property (nonatomic,strong)__block NSString *prompt;
 @property (nonatomic,strong)uexGestureUnlockProgressBlock progressBlock;
 @property (nonatomic,strong)uexGestureUnlockCompletionBlock completionBlock;
 
@@ -54,8 +62,9 @@ static CGFloat kUexGestureUnlockActionButtonFontSize=10;//ActionButton的字体�
 //
 @property (nonatomic,strong)RACDisposable *currentExecution;
 @property (nonatomic,strong)RACSubject *eventStream;
-@property (nonatomic,assign)NSInteger trialTimes;
-@property (nonatomic,strong)NSString *inputCode;
+@property (nonatomic,strong)__block NSString *inputCode;
+@property (nonatomic,assign)__block NSInteger trialTimes;
+@property (nonatomic,assign)uexGestureUnlockCodeValidSignalType signalType;
 @end
 
 @implementation uexGestureUnlockViewController
@@ -169,16 +178,111 @@ static CGFloat kUexGestureUnlockActionButtonFontSize=10;//ActionButton的字体�
 
 -(void)setupEventStream{
     RACSubject *eventStream = [RACSubject subject];
-    [eventStream subscribeNext:^(NSNumber *eventNumber) {
+    self.eventStream=eventStream;
+    @weakify(self);
+    [self.eventStream subscribeNext:^(NSNumber *eventNumber) {
+        @strongify(self);
         uexGestureUnlockEvent event=(uexGestureUnlockEvent)[eventNumber integerValue];
         if(self.progressBlock){
             self.progressBlock(event);
         }
+        switch (event) {
+            case uexGestureUnlockInitialized: {
+                switch (self.mode) {
+                    case uexGestureUnlockModeCreateCode: {
+
+                        [self.eventStream sendNext:@(uexGestureUnlockCodeCreationBegin)];
+                        break;
+                    }
+                    case uexGestureUnlockModeVerifyCode:
+                    case uexGestureUnlockModeVerifyThenCreateCode: {
+                        [self.eventStream sendNext:@(uexGestureUnlockCodeVerificationBegin)];
+                        break;
+                    }
+
+                }
+                break;
+            }
+            case uexGestureUnlockCodeVerificationBegin: {
+                self.prompt=self.config.verificationBeginPrompt;
+                self.signalType=uexGestureUnlockCodeVerificationSignal;
+                [self startCodeVerification];
+                break;
+            }
+            case uexGestureUnlockCodeVerificationFailed: {
+                self.prompt=self.config.verificationErrorPrompt;
+                if(self.config.maximubAllowTrialTimes == 0){
+                    self.prompt=self.config.verificationErrorPrompt;
+                }else if(self.trialTimes <=self.config.maximubAllowTrialTimes){
+                    self.prompt=[NSString stringWithFormat:self.config.verificationErrorPrompt,(long)(self.trialTimes-self.config.maximubAllowTrialTimes)];
+                    
+                }else{
+                    self.prompt=@"";
+                    [self.eventStream sendError:[uexGestureUnlockError maxTrialTimesExceededError]];
+                }
+
+                break;
+            }
+            case uexGestureUnlockCodeVerificationCancelled: {
+                self.prompt=@"";
+                [self.eventStream sendError:[uexGestureUnlockError verificationCancelledError]];
+                break;
+            }
+            case uexGestureUnlockCodeVerificationSucceed: {
+                self.prompt=self.config.verificationSucceedPrompt;
+                switch (self.mode) {
+                    case uexGestureUnlockModeVerifyCode: {
+                        [self.eventStream sendCompleted];
+                        break;
+                    }
+                    case uexGestureUnlockModeVerifyThenCreateCode: {
+                        [self.eventStream sendNext:@(uexGestureUnlockCodeCreationBegin)];
+                        break;
+                    }
+                    default: {
+                        [self.eventStream sendError:[uexGestureUnlockError unknownAccidentHappenedError]];
+                        break;
+                    }
+                }
+                break;
+            }
+            case uexGestureUnlockCodeCreationBegin: {
+                self.prompt=self.config.creationBeginPrompt;
+                self.signalType=uexGestureUnlockCodeLengthCheckSignal;
+                [self startCodeCreation];
+                break;
+            }
+            case uexGestureUnlockCodeCreationInputInvalid: {
+                self.prompt=self.config.codeLengthErrorPrompt;
+                break;
+            }
+            case uexGestureUnlockCodeCreationCheckInput: {
+                <#statement#>
+                break;
+            }
+            case uexGestureUnlockCodeCreationCheckFailed: {
+                <#statement#>
+                break;
+            }
+            case uexGestureUnlockCodeCreationCompleted: {
+                <#statement#>
+                break;
+            }
+            case uexGestureUnlockCodeCreationCancelled: {
+                <#statement#>
+                break;
+            }
+            default: {
+                break;
+            }
+        }
     } error:^(NSError *error) {
+        @strongify(self);
         if(self.completionBlock){
             self.completionBlock(YES,error);
         }
     } completed:^{
+        @strongify(self);
         if(self.completionBlock){
             self.completionBlock(NO,nil);
         }
@@ -258,37 +362,73 @@ static CGFloat kUexGestureUnlockActionButtonFontSize=10;//ActionButton的字体�
 }
 
 
-#pragma mark - Processer Signals
+#pragma mark - Processers
 
 -(void)startCodeVerification{
     [self clear];
     [self setupIconView];
+    if(![self.class isGestureCodeSet]){
+        [self.eventStream sendError:[uexGestureUnlockError codeNotSetError];
+    }
     @weakify(self);
     self.currentExecution=[self.verifyResultCommand.executionSignals subscribeNext:^(RACSignal *execution) {
         [execution subscribeNext:^(id x) {
             @strongify(self);
             BOOL verifyResult = [x boolValue];
+            if(verifyResult){
+                //验证成功
+                [self.eventStream sendNext:@(uexGestureUnlockCodeVerificationSucceed)];
+            }else{
+                //验证失败
+                self.trialTimes++;
+                [self.eventStream sendNext:@(uexGestureUnlockCodeVerificationFailed)];
+            }
         }];
     }];
-
+    [self.rightActionButton setTitle:self.config.cancelCreationButtonTitle forState:UIControlStateNormal];
+    [[self.rightActionButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        [self.eventStream sendNext:@(uexGestureUnlockCodeVerificationCancelled)];
+    }];
+    
+    
 }
+
+
 
 -(void)startCodeCreation{
     [self clear];
-    self.inputCode=nil;
     [self setupInfoView];
+    self.prompt=self.config.creationBeginPrompt;
+    @weakify(self);
+    self.currentExecution=[self.verifyResultCommand.executionSignals subscribeNext:^(RACSignal *execution) {
+        [execution subscribeNext:^(id x) {
+            @strongify(self);
+            BOOL verifyResult = [x boolValue];
+             if(verifyResult){
+                 
+             }else{
+                 
+             }
+            
+        }];
+    };
+
+    
+    
+    [self.eventStream sendNext:@(uexGestureUnlockCodeCreationBegin)];
 }
 
 -(void)startCodeChecking{
-    
+    if(self.currentExecution){
+        [self.currentExecution dispose];
+        self.currentExecution=nil;
+    }
 }
--(void)complete{
-    
-}
+
 
 #pragma mark - Signals
 
--(RACSignal *)checkIfCodeValidSignal:(NSArray<NSNumber *> *)input{
+-(RACSignal *)ifCodeValidSignal:(NSArray<NSNumber *> *)input{
     return nil;
 }
 
@@ -318,7 +458,10 @@ static CGFloat kUexGestureUnlockActionButtonFontSize=10;//ActionButton的字体�
         [self.iconView removeFromSuperview];
         self.iconView=nil;
     }
+    self.leftActionButton.hidden=YES;
+    self.rightActionButton.hidden=YES;
     self.trialTimes=0;
+    self.inputCode=@"";
 }
 
 

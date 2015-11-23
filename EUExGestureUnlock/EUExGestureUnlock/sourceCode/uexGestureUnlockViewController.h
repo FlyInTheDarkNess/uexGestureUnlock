@@ -36,6 +36,7 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockMode) {
 };
 
 typedef NS_ENUM(NSInteger,uexGestureUnlockEvent) {
+    uexGestureUnlockInitialized,
     uexGestureUnlockCodeVerificationBegin,
     uexGestureUnlockCodeVerificationFailed,
     uexGestureUnlockCodeVerificationCancelled,

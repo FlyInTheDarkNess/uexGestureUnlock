@@ -39,14 +39,19 @@ extern NSString *const kUexGestureUnlockConfigurationSaveGestureCodeKey;
 @property (nonatomic,strong)UIColor *errorThemeColor;//错误状态下的主题颜色
 
 //Strings
-@property (nonatomic,strong)NSString *initialInputPrompt;//设置手势密码前的提示文字
+@property (nonatomic,strong)NSString *creationBeginPrompt;//设置手势密码前的提示文字
 @property (nonatomic,strong)NSString *codeLengthErrorPrompt;//密码长度低于最短长度的错误提示文字
-@property (nonatomic,strong)NSString *checkInputPrompt;//确认手势手势密码，要求再次绘制的提示文字
+@property (nonatomic,strong)NSString *codeCheckPrompt;//确认手势手势密码，要求再次绘制的提示文字
 @property (nonatomic,strong)NSString *checkErrorPrompt;//再次绘制的图案不一致的提示文字
-@property (nonatomic,strong)NSString *setSuccessPrompt;//设置成功的提示文字
-@property (nonatomic,strong)NSString *verifyBeginPrompt;//验证手势前的提示文字
-@property (nonatomic,strong)NSString *verifyErrorPrompt;//验证手势密码失败的提示文字
-@property (nonatomic,strong)NSString *verifySuccessPrompt;//验证手势密码成功的提示文字
+@property (nonatomic,strong)NSString *creationSucceedPrompt;//设置成功的提示文字
+@property (nonatomic,strong)NSString *verificationBeginPrompt;//验证手势前的提示文字
+@property (nonatomic,strong)NSString *verificationErrorPrompt;//验证手势密码失败的提示文字
+@property (nonatomic,strong)NSString *verificationSucceedPrompt;//验证手势密码成功的提示文字
+
+//buttonTitle
+@property (nonatomic,strong)NSString *cancelVerificationButtonTitle;//取消手势验证按钮的显示文字
+@property (nonatomic,strong)NSString *cancelCreationButtonTitle;//取消设置手势密码按钮的显示文字
+@property (nonatomic,strong)NSString *restartCreationButtonTitle;//重新设置手势密码按钮的显示文字
 
 //Times
 @property (nonatomic,assign)NSTimeInterval errorRemainInterval;//错误状态的保留时间
