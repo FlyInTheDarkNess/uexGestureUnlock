@@ -61,7 +61,7 @@
 		4247B0AB1C02BE060048CCDF /* Masonry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Masonry.framework; sourceTree = "<group>"; };
 		4247B0AD1C0323210048CCDF /* uexGestureUnlockError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uexGestureUnlockError.h; sourceTree = "<group>"; };
 		4247B0AE1C0323210048CCDF /* uexGestureUnlockError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uexGestureUnlockError.m; sourceTree = "<group>"; };
-		427778221BFD5D1700AA5C41 /* libEUExGestureUnlock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEUExGestureUnlock.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		427778221BFD5D1700AA5C41 /* libuexGestureUnlock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libuexGestureUnlock.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4277782E1BFD5DAB00AA5C41 /* EUExGestureUnlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExGestureUnlock.h; sourceTree = "<group>"; };
 		4277782F1BFD5DAB00AA5C41 /* EUExGestureUnlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EUExGestureUnlock.m; sourceTree = "<group>"; };
 		4277783F1BFD6B8B00AA5C41 /* EUExBase+Bundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EUExBase+Bundle.h"; sourceTree = "<group>"; };
@@ -105,7 +105,7 @@
 		427778231BFD5D1700AA5C41 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				427778221BFD5D1700AA5C41 /* libEUExGestureUnlock.a */,
+				427778221BFD5D1700AA5C41 /* libuexGestureUnlock.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -197,7 +197,7 @@
 			);
 			name = EUExGestureUnlock;
 			productName = EUExGestureUnlock;
-			productReference = 427778221BFD5D1700AA5C41 /* libEUExGestureUnlock.a */;
+			productReference = 427778221BFD5D1700AA5C41 /* libuexGestureUnlock.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -344,7 +344,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/EUExGestureUnlock/sourceCode/PrefixHeader.pch;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = uexGestureUnlock;
+				PRODUCT_NAME = uexGestureUnlock;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -360,7 +361,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/EUExGestureUnlock/sourceCode/PrefixHeader.pch;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = uexGestureUnlock;
+				PRODUCT_NAME = uexGestureUnlock;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
