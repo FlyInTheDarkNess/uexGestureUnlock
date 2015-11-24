@@ -26,8 +26,7 @@
 #import "uexGestureUnlockConfiguration.h"
 
 
-#define UEXGU_SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
-#define UEXGU_SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
 
 typedef NS_ENUM(NSInteger,uexGestureUnlockMode) {
     uexGestureUnlockModeCreateCode,//设置新密码
@@ -45,18 +44,19 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockEvent) {
     uexGestureUnlockCodeCreationInputInvalid,
     uexGestureUnlockCodeCreationCheckInput,
     uexGestureUnlockCodeCreationCheckFailed,
-    uexGestureUnlockCodeCreationCompleted,
     uexGestureUnlockCodeCreationCancelled,
+    uexGestureUnlockCodeCreationCompleted
+    
 };
 
 typedef void (^uexGestureUnlockProgressBlock)(uexGestureUnlockEvent event);
-typedef void (^uexGestureUnlockCompletionBlock)(BOOL isCancelled,NSError *error);
+typedef void (^uexGestureUnlockCompletionBlock)(BOOL isFinished,NSError *error);
 
 
 @interface uexGestureUnlockViewController : UIViewController
 
 @property (nonatomic,assign)uexGestureUnlockMode mode;
-
+@property (nonatomic,strong)__block NSString *prompt;
 
 
 @property (nonatomic,strong)uexGestureUnlockConfiguration *config;
@@ -75,13 +75,13 @@ typedef void (^uexGestureUnlockCompletionBlock)(BOOL isCancelled,NSError *error)
 
 
 
-
 - (instancetype)initWithConfiguration:(uexGestureUnlockConfiguration *)config
                                  mode:(uexGestureUnlockMode)mode
                              progress:(uexGestureUnlockProgressBlock)progressBlock
                            completion:(uexGestureUnlockCompletionBlock)completionBlock;
-+(BOOL)isGestureCodeSet;
-
+- (void)cancel;
++ (BOOL)isGestureCodeSet;
++ (void)removeGestureCode;
 
 
 

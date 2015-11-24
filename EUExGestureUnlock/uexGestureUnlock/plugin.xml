@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uexplugins>
+    <plugin name="uexGestureUnlock">
+        <method name="isGestureCodeSet"></method>
+        <method name="resetGestureCode"></method>
+        <method name="config"></method>
+        <method name="verify"></method>
+        <method name="create"></method>
+        <method name="cancel"></method>
+    </plugin>
+    
+</uexplugins>

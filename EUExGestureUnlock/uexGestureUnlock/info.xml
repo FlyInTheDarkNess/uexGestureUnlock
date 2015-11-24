@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uexplugins>
+    <plugin
+        uexName="uexGestureUnlock" version="3.0.0" build="0">
+        <build>0:手势解锁 功能插件</build>
+    </plugin>
+</uexplugins>

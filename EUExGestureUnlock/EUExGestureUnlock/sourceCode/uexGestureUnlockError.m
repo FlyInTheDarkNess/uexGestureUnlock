@@ -24,5 +24,26 @@
 #import "uexGestureUnlockError.h"
 
 @implementation uexGestureUnlockError
++(NSError *)errorWithCode:(NSInteger)code description:(NSString *)desc{
+    return [NSError errorWithDomain:desc code:code userInfo:nil];
+}
 
++(NSError *)codeNotSetError{
+    return [self errorWithCode:1 description:@"密码未设置"];
+}
++(NSError *)creationCancelledError{
+    return [self errorWithCode:2 description:@"用户取消了创建密码过程"];
+}
++(NSError *)verificationCancelledError{
+    return [self errorWithCode:3 description:@"用户取消了验证密码过程"];
+}
++(NSError *)maxTrialTimesExceededError{
+    return [self errorWithCode:4 description:@"尝试密码次数过多"];
+}
++(NSError *)forcedCancalError{
+    return [self errorWithCode:5 description:@"插件被cancel接口强制关闭"];
+}
++(NSError *)unknownAccidentHappenedError{
+    return [self errorWithCode:6 description:@"发生未知错误"];
+}
 @end

@@ -45,14 +45,7 @@
     for (int i=0; i<9; i++) {
         [self addSubview:[self getCircle]];
     }
-}
 
-
--(uexGestureUnlockCircle *)getCircle{
-    return [[uexGestureUnlockCircle alloc] init];
-}
--(void)layoutSubviews{
-    [super layoutSubviews];
     CGFloat radius=self.sideLength/12;
     
     @weakify(self);
@@ -71,10 +64,14 @@
          CGFloat y=radius*(1+4*col);
          CGRect frame = CGRectMake(x, y, radius*2, radius*2);
          circle.frame=frame;
-         circle.showArrow=self.showArrow;
          [self.circles addObject:circle];
          return YES;
      }];
-    
 }
+
+
+-(uexGestureUnlockCircle *)getCircle{
+    return [[uexGestureUnlockCircle alloc] init];
+}
+
 @end

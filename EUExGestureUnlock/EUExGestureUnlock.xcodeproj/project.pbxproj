@@ -19,6 +19,8 @@
 		4247B0A91C02AC390048CCDF /* NSString+uexGestureUnlockCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247B0A81C02AC390048CCDF /* NSString+uexGestureUnlockCode.m */; };
 		4247B0AC1C02BE070048CCDF /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4247B0AB1C02BE060048CCDF /* Masonry.framework */; };
 		4247B0AF1C0323210048CCDF /* uexGestureUnlockError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247B0AE1C0323210048CCDF /* uexGestureUnlockError.m */; };
+		4247B0B31C040C7E0048CCDF /* Masonry.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4247B0AB1C02BE060048CCDF /* Masonry.framework */; };
+		4247B0B41C040C830048CCDF /* ReactiveCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 42331F861BFEAE3D0061A9C4 /* ReactiveCocoa.framework */; };
 		427778301BFD5DAB00AA5C41 /* EUExGestureUnlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 4277782F1BFD5DAB00AA5C41 /* EUExGestureUnlock.m */; };
 /* End PBXBuildFile section */
 
@@ -26,9 +28,11 @@
 		427778201BFD5D1700AA5C41 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
+			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				4247B0B41C040C830048CCDF /* ReactiveCocoa.framework in CopyFiles */,
+				4247B0B31C040C7E0048CCDF /* Masonry.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,7 +289,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -322,7 +326,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

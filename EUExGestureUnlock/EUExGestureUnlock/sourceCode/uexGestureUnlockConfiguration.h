@@ -61,9 +61,8 @@ extern NSString *const kUexGestureUnlockConfigurationSaveGestureCodeKey;
 @property (nonatomic,strong)UIImage *backgroundImage;//手势解锁界面的背景图;
 @property (nonatomic,strong)UIImage *iconImage;//头像
 
-//Boolean
-@property (nonatomic,assign)BOOL showIcon;
-@property (nonatomic,assign)BOOL useLeftActionLable;
+
+
 
 +(instancetype)defaultConfiguration;
 @end

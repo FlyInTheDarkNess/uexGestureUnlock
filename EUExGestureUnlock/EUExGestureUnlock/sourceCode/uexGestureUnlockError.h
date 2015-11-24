@@ -29,5 +29,6 @@
 +(NSError *)creationCancelledError;
 +(NSError *)verificationCancelledError;
 +(NSError *)maxTrialTimesExceededError;
++(NSError *)forcedCancalError;
 +(NSError *)unknownAccidentHappenedError;
 @end

@@ -26,13 +26,16 @@
 #import "uexGestureUnlockTouchView.h"
 #import "uexGestureUnlockInfoView.h"
 #import "uexGestureUnlockError.h"
+#import "NSString+uexGestureUnlockCode.h"
 #import <Masonry/Masonry.h>
 //const
+#define UEXGU_SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define UEXGU_SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 static CGFloat kUexGestureUnlockMinimumExecutionInteval=0.5f; //2次密码验证之间的最短间隔
 static CGFloat kUexGestureUnlockTouchViewMargin=30;//TouchView距离左右屏幕边框的距离
-static CGFloat kUexGestureUnlockPromptLabelMargin=10;//PromptLabel的上下间距
-static CGFloat kUexGestureUnlockPromptLabelFontSize=14;//PromptLabel的字体大小
-static CGFloat kUexGestureUnlockActionButtonFontSize=10;//ActionButton的字体大小
+static CGFloat kUexGestureUnlockPromptLabelMargin=20;//PromptLabel的上下间距
+static CGFloat kUexGestureUnlockPromptLabelFontSize=18;//PromptLabel的字体大小
+static CGFloat kUexGestureUnlockActionButtonFontSize=14;//ActionButton的字体大小
 
 
 typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
@@ -46,7 +49,7 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 
 @interface uexGestureUnlockViewController ()
 
-@property (nonatomic,strong)__block NSString *prompt;
+
 @property (nonatomic,strong)uexGestureUnlockProgressBlock progressBlock;
 @property (nonatomic,strong)uexGestureUnlockCompletionBlock completionBlock;
 
@@ -92,6 +95,7 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
     if(self.config.backgroundImage){
         [imageView setImage:self.config.backgroundImage];
     }
+    imageView.contentMode=UIViewContentModeScaleToFill;
     imageView.userInteractionEnabled=YES;
     self.view=imageView;
 }
@@ -108,7 +112,7 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-
+    [self.eventStream sendNext:@(uexGestureUnlockInitialized)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -120,14 +124,15 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 -(void)setupTouchView{
     CGFloat touchViewSideLength=UEXGU_SCREEN_WIDTH-2*kUexGestureUnlockTouchViewMargin;
     self.touchView=[[uexGestureUnlockTouchView alloc] initWithSideLength:touchViewSideLength];
-    
+    [self.touchView combineWithViewController:self];
     [self.view addSubview:self.touchView];
     @weakify(self);
     [self.touchView mas_updateConstraints:^(MASConstraintMaker *make) {
         @strongify(self);
-        make.width.and.height.equalTo(@(touchViewSideLength));
+        make.width.equalTo(@(touchViewSideLength));
+        make.height.equalTo(@(touchViewSideLength));
         make.left.equalTo(self.view.mas_left).with.offset(kUexGestureUnlockTouchViewMargin);
-        make.top.equalTo(self.view.mas_top).with.offset(0.4*UEXGU_SCREEN_HEIGHT);
+        make.top.equalTo(self.view.mas_top).with.offset(0.3*UEXGU_SCREEN_HEIGHT);
     }];
 
 }
@@ -138,7 +143,7 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
     @weakify(self);
     [self.leftActionButton mas_updateConstraints:^(MASConstraintMaker *make) {
         @strongify(self);
-        make.bottom.equalTo(self.view.mas_bottom).with.offset(5);
+        make.bottom.equalTo(self.view.mas_bottom).with.offset(-20);
         make.left.equalTo(self.view.mas_left).with.offset(kUexGestureUnlockTouchViewMargin);
     }];
 }
@@ -147,7 +152,7 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
     @weakify(self);
     [self.rightActionButton mas_updateConstraints:^(MASConstraintMaker *make) {
         @strongify(self);
-        make.bottom.equalTo(self.view.mas_bottom).with.offset(5);
+        make.bottom.equalTo(self.view.mas_bottom).with.offset(-20);
         make.right.equalTo(self.view.mas_right).with.offset(-kUexGestureUnlockTouchViewMargin);
     }];
 }
@@ -164,16 +169,47 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
     @weakify(self);
     [self.promptLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         @strongify(self);
-        make.bottom.equalTo(self.touchView.mas_top).with.offset(-kUexGestureUnlockPromptLabelMargin);
+        make.bottom.equalTo(self.touchView.mas_top);
         make.centerX.equalTo(self.view.mas_centerX);
     }];
 }
 
 -(void)setupInfoView{
-    
+    CGFloat sideLength=50;
+    uexGestureUnlockInfoView *infoView=[[uexGestureUnlockInfoView alloc]initWithSideLength:sideLength];
+    [infoView combineWithViewController:self];
+    self.infoView=infoView;
+    [self.view addSubview:self.infoView];
+    @weakify(self);
+    [self.infoView mas_updateConstraints:^(MASConstraintMaker *make) {
+        @strongify(self);
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.bottom.equalTo(self.promptLabel.mas_top).with.offset(-kUexGestureUnlockPromptLabelMargin);
+        make.height.equalTo(@(sideLength));
+        make.width.equalTo(@(sideLength));
+    }];
 }
 -(void)setupIconView{
-    
+    UIImageView *icon=[[UIImageView alloc]init];
+    icon.backgroundColor=[UIColor clearColor];
+    icon.userInteractionEnabled=YES;
+    CGFloat radius=UEXGU_SCREEN_WIDTH*0.15;
+    icon.layer.masksToBounds=YES;
+    icon.layer.cornerRadius=radius;
+    if(self.config.iconImage){
+        [icon setImage:self.config.iconImage];
+        icon.contentMode=UIViewContentModeScaleToFill;
+    }
+    self.iconView=icon;
+    [self.view addSubview:self.iconView];
+    @weakify(self);
+    [self.iconView mas_updateConstraints:^(MASConstraintMaker *make) {
+        @strongify(self);
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.bottom.equalTo(self.promptLabel.mas_top).with.offset(-kUexGestureUnlockPromptLabelMargin);
+        make.height.equalTo(@(radius*2));
+        make.width.equalTo(@(radius*2));
+    }];
 }
 
 -(void)setupEventStream{
@@ -214,17 +250,17 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
                 if(self.config.maximubAllowTrialTimes == 0){
                     self.prompt=self.config.verificationErrorPrompt;
                 }else if(self.trialTimes <=self.config.maximubAllowTrialTimes){
-                    self.prompt=[NSString stringWithFormat:self.config.verificationErrorPrompt,(long)(self.trialTimes-self.config.maximubAllowTrialTimes)];
+                    self.prompt=[NSString stringWithFormat:self.config.verificationErrorPrompt,(int)(self.config.maximubAllowTrialTimes-self.trialTimes)];
                     
                 }else{
-                    self.prompt=@"";
+                    self.prompt=@" ";
                     [self.eventStream sendError:[uexGestureUnlockError maxTrialTimesExceededError]];
                 }
 
                 break;
             }
             case uexGestureUnlockCodeVerificationCancelled: {
-                self.prompt=@"";
+                self.prompt=@" ";
                 [self.eventStream sendError:[uexGestureUnlockError verificationCancelledError]];
                 break;
             }
@@ -253,38 +289,43 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
                 break;
             }
             case uexGestureUnlockCodeCreationInputInvalid: {
-                self.prompt=self.config.codeLengthErrorPrompt;
+                self.prompt=[NSString stringWithFormat:self.config.codeLengthErrorPrompt,(int)self.config.minimumCodeLength];
                 break;
             }
             case uexGestureUnlockCodeCreationCheckInput: {
-                <#statement#>
+                self.prompt=self.config.codeCheckPrompt;
+                self.signalType=uexGestureUnlockCodeEqualCheckSignal;
+                [self startCodeChecking];
                 break;
             }
             case uexGestureUnlockCodeCreationCheckFailed: {
-                <#statement#>
+                self.prompt=self.config.checkErrorPrompt;
                 break;
             }
             case uexGestureUnlockCodeCreationCompleted: {
-                <#statement#>
+                self.prompt=self.config.creationSucceedPrompt;
+                [self.class saveGestureCode:self.inputCode];
+                [self.eventStream sendCompleted];
                 break;
             }
             case uexGestureUnlockCodeCreationCancelled: {
-                <#statement#>
+                [self.eventStream sendError:[uexGestureUnlockError creationCancelledError]];
                 break;
             }
-            default: {
-                break;
-            }
+
         }
     } error:^(NSError *error) {
         @strongify(self);
         if(self.completionBlock){
-            self.completionBlock(YES,error);
+            self.completionBlock(NO,error);
         }
     } completed:^{
         @strongify(self);
         if(self.completionBlock){
-            self.completionBlock(NO,nil);
+            [[RACScheduler mainThreadScheduler] afterDelay:self.config.successRemainInterval schedule:^{
+                self.completionBlock(YES,nil);
+            }];
+    
         }
     }];
 }
@@ -292,16 +333,26 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 
 #pragma mark - Override Setters/Getters
 
--(void)setConfig:(uexGestureUnlockConfiguration *)config{
-    if(!config){
-        _config=[uexGestureUnlockConfiguration defaultConfiguration];
-    }else{
-        _config=config;
-    }
-}
+
 -(RACSubject *)touchStartStream{
     if(!_touchStartStream){
         _touchStartStream=[RACSubject subject];
+        [_touchStartStream subscribeNext:^(id x) {
+            switch (self.signalType) {
+                case uexGestureUnlockCodeVerificationSignal: {
+                    self.prompt=self.config.verificationBeginPrompt;
+                    break;
+                }
+                case uexGestureUnlockCodeLengthCheckSignal: {
+                    self.prompt=self.config.creationBeginPrompt;
+                    break;
+                }
+                case uexGestureUnlockCodeEqualCheckSignal: {
+                    self.prompt=self.config.codeCheckPrompt;
+                    break;
+                }
+            }
+        }];
     }
     return _touchStartStream;
 }
@@ -321,7 +372,7 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 -(RACCommand *)verifyResultCommand{
     if(!_verifyResultCommand){
         _verifyResultCommand=[[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSArray<NSNumber *> *input) {
-            return [self checkIfCodeValidSignal:input];
+            return [self ifCodeValidSignal:input];
         }];
     }
     return _verifyResultCommand;
@@ -368,7 +419,7 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
     [self clear];
     [self setupIconView];
     if(![self.class isGestureCodeSet]){
-        [self.eventStream sendError:[uexGestureUnlockError codeNotSetError];
+        [self.eventStream sendError:[uexGestureUnlockError codeNotSetError]];
     }
     @weakify(self);
     self.currentExecution=[self.verifyResultCommand.executionSignals subscribeNext:^(RACSignal *execution) {
@@ -385,11 +436,11 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
             }
         }];
     }];
-    [self.rightActionButton setTitle:self.config.cancelCreationButtonTitle forState:UIControlStateNormal];
+    [self.rightActionButton setTitle:self.config.cancelVerificationButtonTitle forState:UIControlStateNormal];
     [[self.rightActionButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         [self.eventStream sendNext:@(uexGestureUnlockCodeVerificationCancelled)];
     }];
-    
+    self.rightActionButton.hidden=NO;
     
 }
 
@@ -398,24 +449,24 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 -(void)startCodeCreation{
     [self clear];
     [self setupInfoView];
-    self.prompt=self.config.creationBeginPrompt;
     @weakify(self);
     self.currentExecution=[self.verifyResultCommand.executionSignals subscribeNext:^(RACSignal *execution) {
         [execution subscribeNext:^(id x) {
             @strongify(self);
             BOOL verifyResult = [x boolValue];
              if(verifyResult){
-                 
+                 [self.eventStream sendNext:@(uexGestureUnlockCodeCreationCheckInput)];
              }else{
-                 
+                 [self.eventStream sendNext:@(uexGestureUnlockCodeCreationInputInvalid)];
              }
             
         }];
-    };
-
-    
-    
-    [self.eventStream sendNext:@(uexGestureUnlockCodeCreationBegin)];
+    }];
+    [self.rightActionButton setTitle:self.config.cancelCreationButtonTitle forState:UIControlStateNormal];
+    [[self.rightActionButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        [self.eventStream sendNext:@(uexGestureUnlockCodeCreationCancelled)];
+    }];
+    self.rightActionButton.hidden=NO;
 }
 
 -(void)startCodeChecking{
@@ -423,13 +474,83 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
         [self.currentExecution dispose];
         self.currentExecution=nil;
     }
+    @weakify(self);
+    self.currentExecution=[self.verifyResultCommand.executionSignals subscribeNext:^(RACSignal *execution) {
+        [execution subscribeNext:^(id x) {
+            @strongify(self);
+            BOOL verifyResult = [x boolValue];
+            if(verifyResult){
+                [self.eventStream sendNext:@(uexGestureUnlockCodeCreationCompleted)];
+            }else{
+                [self.eventStream sendNext:@(uexGestureUnlockCodeCreationCheckFailed)];
+            }
+            
+        }];
+    }];
+    [self.leftActionButton setTitle:self.config.restartCreationButtonTitle forState:UIControlStateNormal];
+    [[self.leftActionButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        [self.eventStream sendNext:@(uexGestureUnlockCodeCreationBegin)];
+    }];
+    self.leftActionButton.hidden=NO;
 }
 
 
+-(void)cancel{
+    [self.eventStream sendError:[uexGestureUnlockError forcedCancalError]];
+}
 #pragma mark - Signals
 
 -(RACSignal *)ifCodeValidSignal:(NSArray<NSNumber *> *)input{
-    return nil;
+    NSString *inputCode=[NSString uexGU_stringFromCodeArray:input];
+    switch (self.signalType) {
+        case uexGestureUnlockCodeVerificationSignal: {
+            NSString *savedCode=[self.class getGestureCode];
+            return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+                if([savedCode isEqual:inputCode]){
+                    [subscriber sendNext:@(YES)];
+                }else{
+                    [subscriber sendNext:@(NO)];
+                }
+                [[RACScheduler mainThreadScheduler]afterDelay:kUexGestureUnlockMinimumExecutionInteval schedule:^{
+                    [subscriber sendCompleted];
+                }];
+                return nil;
+            }];
+            break;
+        }
+        case uexGestureUnlockCodeLengthCheckSignal: {
+            return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+                if([inputCode length]>=self.config.minimumCodeLength){
+                    self.inputCode=inputCode;
+                    [subscriber sendNext:@(YES)];
+                }else{
+                    [subscriber sendNext:@(NO)];
+                }
+                if(self.infoView) {
+                    [self.infoView SelectCircles:input];
+                }
+                [[RACScheduler mainThreadScheduler]afterDelay:kUexGestureUnlockMinimumExecutionInteval schedule:^{
+                    [subscriber sendCompleted];
+                }];
+                return nil;
+            }];
+            break;
+        }
+        case uexGestureUnlockCodeEqualCheckSignal: {
+            return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+                if([inputCode isEqual:self.inputCode]){
+                    [subscriber sendNext:@(YES)];
+                }else{
+                    [subscriber sendNext:@(NO)];
+                }
+                [[RACScheduler mainThreadScheduler]afterDelay:kUexGestureUnlockMinimumExecutionInteval schedule:^{
+                    [subscriber sendCompleted];
+                }];
+                return nil;
+            }];
+            break;
+        }
+    }
 }
 
 

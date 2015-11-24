@@ -36,7 +36,7 @@
 @property (nonatomic,strong)NSMutableArray<uexGestureUnlockCircle *> *selectedCircles;
 @property (nonatomic,weak)uexGestureUnlockConfiguration *config;
 @property (nonatomic,assign)CGFloat sideLength;//需要知道边长，用于排列圆
-@property (nonatomic,assign)BOOL showArrow;
+
 
 
 -(instancetype)initWithSideLength:(CGFloat)sideLength;

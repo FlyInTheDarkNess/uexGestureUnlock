@@ -22,7 +22,7 @@
  *
  */
 
-#define END return [UIColor clearColor]
+
 
 
 #import "UIColor+HtmlColor.h"
@@ -68,7 +68,7 @@
                 break;
                 
             default:
-                END;
+                return nil;
                 break;
         }
         [[NSScanner scannerWithString:colorArray[0]] scanHexInt:&a];
@@ -86,13 +86,15 @@
         colorString=[colorString substringWithRange:NSMakeRange(5, [colorString length] -6)];
         return [self uexGU_ColorWithRGBAArray:[colorString componentsSeparatedByString:@","]];
     }
-    END;
+    return nil;
     
     
 }
 
 +(UIColor*)uexGU_ColorWithRGBAArray:(NSArray *)rgbaStr{
-    if([rgbaStr count]<3) END;
+    if([rgbaStr count]<3){
+        return nil;
+    }
     NSMutableArray *rgb=[NSMutableArray array];
     NSString *alpha=@"1";
     if([rgbaStr count]>3 && [rgbaStr[3] isKindOfClass:[NSString class]]){
@@ -100,7 +102,9 @@
     }
     
     for(int i=0;i<3;i++) {
-        if(![rgbaStr[i] isKindOfClass:[NSString class]]) END;
+        if(![rgbaStr[i] isKindOfClass:[NSString class]]){
+           return nil;
+        }
         NSString *str=rgbaStr[i];
         str=[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if([str hasSuffix:@"%"]){

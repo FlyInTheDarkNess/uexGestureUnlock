@@ -61,6 +61,7 @@ static NSString *const kUexGestureUnlockShakeAnimationKey=@"kUexGestureUnlockSha
         [self.layer removeAllAnimations];
 
     }];
+    [self setTextColor:self.config.normalThemeColor];
     RAC(self,text)=[RACObserve(controller, prompt) distinctUntilChanged];
 }
 

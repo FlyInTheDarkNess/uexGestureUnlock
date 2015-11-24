@@ -26,7 +26,6 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
 static CGFloat kCircleEdgeWidth = 1;//圆环线宽
-static CGFloat kArrowLength = 10;//三角形边长
 static CGFloat kInnerCircleRatio = 0.6;//内部实心圆所占的比例
 
 @interface uexGestureUnlockCircle()
@@ -63,7 +62,7 @@ static CGFloat kInnerCircleRatio = 0.6;//内部实心圆所占的比例
         uexGestureUnlockCircleStatus status =(uexGestureUnlockCircleStatus)[value integerValue];
         switch (status) {
             case uexGestureUnlockCircleStatusNormal: {
-                self.themeColor=[UIColor clearColor];
+                self.themeColor=self.config.normalThemeColor;
                 break;
             }
             case uexGestureUnlockCircleStatusSelected: {
@@ -77,7 +76,7 @@ static CGFloat kInnerCircleRatio = 0.6;//内部实心圆所占的比例
             }
         }
     }];
-    [[[RACSignal merge:@[statusChangeSignal,arrowNeedRedrawSignal]]
+    [[[RACSignal merge:@[statusChangeSignal,arrowNeedRedrawSignal,RACObserve(self,showArrow)]]
       deliverOnMainThread]
      subscribeNext:^(id x) {
          @strongify(self);
@@ -101,11 +100,19 @@ static CGFloat kInnerCircleRatio = 0.6;//内部实心圆所占的比例
             break;
         }
     }
+    CGFloat translateXY = rect.size.width * 0.5;
+
+    CGContextTranslateCTM(ctx, translateXY, translateXY);
     CGContextRotateCTM(ctx, self.arrowAngle);
+    CGContextTranslateCTM(ctx, -translateXY, -translateXY);
+
     [self drawOuterCircleWithContext:ctx rect:circleRect];
-    [self drawInnerCircleWithContext:ctx rect:circleRect ratio:ratio];
+    [self drawInnerCircleWithContext:ctx rect:rect ratio:ratio];
     if(self.showArrow){
-        [self drawArrowWithContext:ctx topPoint:CGPointMake(rect.size.width/2, 10) length:kArrowLength];
+        CGFloat arrowRt=(1.0/6 < (1.0-ratio)/3)?1.0/6:(1.0-ratio)/3;
+
+        CGFloat arrowLength= rect.size.width*arrowRt;
+        [self drawArrowWithContext:ctx topPoint:CGPointMake(rect.size.width/2, rect.size.width/2*(1.0-ratio)-arrowLength*2/3) length:arrowLength];
     }
 
 }

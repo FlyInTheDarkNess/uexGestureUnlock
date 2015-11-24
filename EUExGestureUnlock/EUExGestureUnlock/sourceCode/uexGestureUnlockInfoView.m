@@ -27,6 +27,7 @@
 @implementation uexGestureUnlockInfoView
 
 -(void)combineWithViewController:(uexGestureUnlockViewController *)controller{
+    [super combineWithViewController:controller];
     @weakify(self);
     [controller.verifyResultCommand.executionSignals subscribeNext:^(RACSignal *execution) {
         [[execution
@@ -47,10 +48,17 @@
         [self setSelectedCirclesStatus:uexGestureUnlockCircleStatusSelected];
     }];
 }
+
+-(uexGestureUnlockCircle *)getCircle{
+    uexGestureUnlockCircle *circle = [[uexGestureUnlockCircle alloc]
+                                      initWithType:uexGestureUnlockCircleTypeInfoCircle
+                                      configuration:self.config];
+    return circle;
+}
 -(void)SelectCircles:(NSArray<NSNumber *> *)indices{
     [self deselectAll];
     for (NSNumber *index in indices) {
-        [self.selectedCircles addObject:[self.circles objectAtIndex:[index integerValue]]];
+        [self.selectedCircles addObject:[self.circles objectAtIndex:[index integerValue]-1]];
     }
     [self setSelectedCirclesStatus:uexGestureUnlockCircleStatusSelected];
 

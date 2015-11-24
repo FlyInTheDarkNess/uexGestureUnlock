@@ -74,14 +74,15 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
 }
 
 -(uexGestureUnlockCircle *)getCircle{
-    return [[uexGestureUnlockCircle alloc]
+    uexGestureUnlockCircle *circle = [[uexGestureUnlockCircle alloc]
             initWithType:uexGestureUnlockCircleTypeGestureCircle
             configuration:self.config];
+    return circle;
 }
 
 #pragma mark - 画线
 -(void)drawRect:(CGRect)rect{
-    if(!self.selectedCircles || self.selectedCircles.count == 0){
+    if(!self.selectedCircles || [self.selectedCircles count] < 1){
         return;//没有任何圆被选择
     }
     CGContextRef ctx = UIGraphicsGetCurrentContext();
@@ -93,10 +94,10 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
     }];
     CGContextEOClip(ctx);
     for (int index = 0; index < self.selectedCircles.count; index++) {
-        
+
         // 取出选中按钮
         uexGestureUnlockCircle *circle = self.selectedCircles[index];
-        
+
         if (index == 0) { // 起点按钮
             CGContextMoveToPoint(ctx, circle.center.x, circle.center.y);//移动到第一个圆
         }else{
@@ -125,6 +126,7 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
     [self dealWithTouchs:touches];
 }
 -(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
     [self dealWithTouchs:touches];
 }
 
@@ -140,6 +142,7 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
 -(void)dealWithTouchs:(NSSet<UITouch *> *)touches{
     UITouch *touch=[touches anyObject];
     CGPoint point=[touch locationInView:self];//触摸点
+    self.currentPoint=point;
     [[self.subviews rac_sequence]
      any:^BOOL(uexGestureUnlockCircle *circle) {
          if(CGRectContainsPoint(circle.frame, point)){//触摸点在某个圆中
@@ -154,6 +157,8 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
 
 
 }
+
+
 #pragma mark - 添加圆到已选择中
 -(void)addSelectedCircle:(uexGestureUnlockCircle *)circle{
     if(!circle || [self.selectedCircles containsObject:circle]){
@@ -172,6 +177,7 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
     CGFloat last_2_y = lastButOneCircle.center.y;
     CGFloat angle = atan2(last_1_y - last_2_y, last_1_x - last_2_x) + M_PI_2;
     [lastButOneCircle setArrowAngle:angle];
+    lastButOneCircle.showArrow=YES;
     
     //处理连线经过其他圆的情况，把这个圆也加入已选择中
     CGPoint midCenterPoint=CGPointMake((last_1_x+last_2_x)/2, (last_1_y+last_2_y)/2);
@@ -184,6 +190,7 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
              circle.arrowAngle=lastButOneCircle.arrowAngle;//更新这个圆的arrowAngle
              if(![self.selectedCircles containsObject:circle]){//如果这个圆没被选择
                  circle.status=uexGestureUnlockCircleStatusSelected;
+                 circle.showArrow=YES;
                  [self.selectedCircles insertObject:circle atIndex:self.selectedCircles.count-1];
                  //插入到倒数第二的位置
              }
@@ -205,9 +212,15 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
      all:^BOOL(uexGestureUnlockCircle * circle) {
         circle.status=uexGestureUnlockCircleStatusNormal;
         circle.arrowAngle=0;
+        circle.showArrow=NO;
+         
         return YES;
     }];
     self.currentPoint = CGPointZero;
-    [self setNeedsDisplay];
+    [[RACScheduler mainThreadScheduler] schedule:^{
+        [self setNeedsDisplay];
+    }];
+    
+    
 }
 @end
