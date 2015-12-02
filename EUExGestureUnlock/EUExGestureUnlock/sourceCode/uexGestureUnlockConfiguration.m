@@ -33,7 +33,7 @@ NSString *const kUexGestureUnlockConfigurationSaveGestureCodeKey=@"kUexGestureUn
     uexGestureUnlockConfiguration *config=[[self alloc] init];
     if(config) {
         config.minimumCodeLength=4;
-        config.maximubAllowTrialTimes=5;
+        config.maximumAllowTrialTimes=5;
         
         config.normalThemeColor=[UIColor uexGU_ColorFromHtmlString:@"#002849"];
         config.selectedThemeColor=[UIColor uexGU_ColorFromHtmlString:@"#22B2F6"];
