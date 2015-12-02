@@ -31,7 +31,7 @@ extern NSString *const kUexGestureUnlockConfigurationSaveGestureCodeKey;
 
 
 @property (nonatomic,assign)NSInteger minimumCodeLength;//密码最短长度
-@property (nonatomic,assign)NSInteger maximubAllowTrialTimes;//最大尝试次数
+@property (nonatomic,assign)NSInteger maximumAllowTrialTimes;//最大尝试次数
 //Colors
 @property (nonatomic,strong)UIColor *backgroundColor;//手势解锁界面的背景色
 @property (nonatomic,strong)UIColor *normalThemeColor;//普通状态下的主题颜色
