@@ -523,12 +523,13 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
                 if([inputCode length]>=self.config.minimumCodeLength){
                     self.inputCode=inputCode;
                     [subscriber sendNext:@(YES)];
+                    if(self.infoView) {
+                        [self.infoView SelectCircles:input];
+                    }
                 }else{
                     [subscriber sendNext:@(NO)];
                 }
-                if(self.infoView) {
-                    [self.infoView SelectCircles:input];
-                }
+                
                 [[RACScheduler mainThreadScheduler]afterDelay:kUexGestureUnlockMinimumExecutionInteval schedule:^{
                     [subscriber sendCompleted];
                 }];
