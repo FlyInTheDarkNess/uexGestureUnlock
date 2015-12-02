@@ -187,8 +187,9 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
      any:^BOOL(uexGestureUnlockCircle * circle) {
          if (CGRectContainsPoint(circle.frame, midCenterPoint)) {//经过了某个圆
              @strongify(self);
-             circle.arrowAngle=lastButOneCircle.arrowAngle;//更新这个圆的arrowAngle
+             
              if(![self.selectedCircles containsObject:circle]){//如果这个圆没被选择
+                 circle.arrowAngle=lastButOneCircle.arrowAngle;//更新这个圆的arrowAngle
                  circle.status=uexGestureUnlockCircleStatusSelected;
                  circle.showArrow=YES;
                  [self.selectedCircles insertObject:circle atIndex:self.selectedCircles.count-1];
