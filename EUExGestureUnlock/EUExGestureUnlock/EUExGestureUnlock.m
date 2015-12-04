@@ -155,10 +155,18 @@
                      }];
     [EUtility brwView:self.meBrwView presentModalViewController:self.controller animated:YES];
 }
+
 -(void)create:(NSMutableArray *)inArguments{
     uexGestureUnlockMode mode = uexGestureUnlockModeVerifyThenCreateCode;
-    if([inArguments count] >0 && [inArguments[0] integerValue] !=0){
-        mode = uexGestureUnlockModeCreateCode;
+    if([inArguments count]>0){
+        id info = [inArguments[0] JSONValue];
+        if(info && [info isKindOfClass:[NSDictionary class]] && [info objectForKey:@"isNeedVerifyBeforeCreate"]){
+            BOOL isNeedVerifyBeforeCreate =[[info objectForKey:@"isNeedVerifyBeforeCreate"] boolValue];
+            if(!isNeedVerifyBeforeCreate){
+                mode = uexGestureUnlockModeCreateCode;
+
+            }
+        }
     }
     if(![uexGestureUnlockViewController isGestureCodeSet]){
         mode = uexGestureUnlockModeCreateCode;
@@ -185,6 +193,7 @@
     [EUtility brwView:self.meBrwView presentModalViewController:self.controller animated:YES];
 
 }
+
 -(void)cancel:(NSMutableArray *)inArguments{
     if(self.controller){
         [self.controller cancel];
