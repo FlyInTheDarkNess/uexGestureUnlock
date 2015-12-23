@@ -20,8 +20,6 @@
 		4247B0AC1C02BE070048CCDF /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4247B0AB1C02BE060048CCDF /* Masonry.framework */; };
 		4247B0AF1C0323210048CCDF /* uexGestureUnlockError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247B0AE1C0323210048CCDF /* uexGestureUnlockError.m */; };
 		427778301BFD5DAB00AA5C41 /* EUExGestureUnlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 4277782F1BFD5DAB00AA5C41 /* EUExGestureUnlock.m */; };
-		42EE60751C2A5C65007CFCB4 /* Masonry.framework in Resources */ = {isa = PBXBuildFile; fileRef = 4247B0AB1C02BE060048CCDF /* Masonry.framework */; };
-		42EE60761C2A5C67007CFCB4 /* ReactiveCocoa.framework in Resources */ = {isa = PBXBuildFile; fileRef = 42331F861BFEAE3D0061A9C4 /* ReactiveCocoa.framework */; };
 		43012121F10511B51D1F5D62 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A1604EF1A280D0AD2CC0EA /* UIKit.framework */; };
 		47DAF6EEBF08EBD06393D54E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61915582D292D40244729BEE /* MapKit.framework */; };
 		708EF7A28B0659E3502F5E85 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7672A50E3AA05E719E8718 /* libz.tbd */; };
@@ -65,7 +63,7 @@
 		4247B0AB1C02BE060048CCDF /* Masonry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Masonry.framework; sourceTree = "<group>"; };
 		4247B0AD1C0323210048CCDF /* uexGestureUnlockError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uexGestureUnlockError.h; sourceTree = "<group>"; };
 		4247B0AE1C0323210048CCDF /* uexGestureUnlockError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uexGestureUnlockError.m; sourceTree = "<group>"; };
-		427778221BFD5D1700AA5C41 /* uexGestureUnlock.framework */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = uexGestureUnlock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		427778221BFD5D1700AA5C41 /* uexGestureUnlock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = uexGestureUnlock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4277782E1BFD5DAB00AA5C41 /* EUExGestureUnlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExGestureUnlock.h; sourceTree = "<group>"; };
 		4277782F1BFD5DAB00AA5C41 /* EUExGestureUnlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EUExGestureUnlock.m; sourceTree = "<group>"; };
 		4277783F1BFD6B8B00AA5C41 /* EUExBase+Bundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EUExBase+Bundle.h"; sourceTree = "<group>"; };
@@ -296,8 +294,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42EE60761C2A5C67007CFCB4 /* ReactiveCocoa.framework in Resources */,
-				42EE60751C2A5C65007CFCB4 /* Masonry.framework in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +420,7 @@
 					"$(PROJECT_DIR)/EUExGestureUnlock/sourceCode",
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)/../../AppCanPluginTools-iOS/resource/IDEPluginProjectPackageResource",
+					"$(PROJECT_DIR)/EUExGestureUnlock",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/EUExGestureUnlock/sourceCode/PrefixHeader.pch;
@@ -461,6 +458,7 @@
 					"$(PROJECT_DIR)/EUExGestureUnlock/sourceCode",
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)/../../AppCanPluginTools-iOS/resource/IDEPluginProjectPackageResource",
+					"$(PROJECT_DIR)/EUExGestureUnlock",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/EUExGestureUnlock/sourceCode/PrefixHeader.pch;
