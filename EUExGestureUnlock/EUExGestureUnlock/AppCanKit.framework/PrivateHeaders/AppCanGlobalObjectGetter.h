@@ -1,12 +1,12 @@
 /**
  *
- *	@file   	: NSString+uexGestureUnlockCode.m  in EUExGestureUnlock Project
+ *	@file   	: AppCanGlobalObjectGetter.h  in AppCanKit
  *
- *	@author 	: CeriNo
+ *	@author 	: CeriNo 
+ * 
+ *	@date   	: Created on 16/5/31.
  *
- *	@date   	: Created on 15/11/23
- *
- *	@copyright 	: 2015 The AppCan Open Source Project.
+ *	@copyright 	: 2016 The AppCan Open Source Project.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
@@ -20,14 +20,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#import "NSString+uexGestureUnlockCode.h"
+ 
+#import <Foundation/Foundation.h>
 
-@implementation NSString (uexGestureUnlockCode)
-+ (instancetype)uexGU_stringFromCodeArray:(NSArray<NSNumber *> *)codeArray{
-    NSMutableString *code=[NSMutableString string];
-    for(int i=0;i<[codeArray count];i++){
-        [code appendString:[codeArray[i] stringValue]];
-    }
-    return code;
-}
+@protocol AppCanGlobalObjectGetter <NSObject>
+
+- (id<AppCanWebViewEngineObject>)getAppCanRootWebViewEngine;
+- (id<AppCanWidgetObject>)getAppCanMainWidget;
+
 @end

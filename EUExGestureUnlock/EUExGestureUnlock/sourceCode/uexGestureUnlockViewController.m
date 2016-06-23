@@ -26,7 +26,6 @@
 #import "uexGestureUnlockTouchView.h"
 #import "uexGestureUnlockInfoView.h"
 #import "uexGestureUnlockError.h"
-#import "NSString+uexGestureUnlockCode.h"
 #import <Masonry/Masonry.h>
 //const
 #define UEXGU_SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
@@ -78,10 +77,10 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
                            completion:(uexGestureUnlockCompletionBlock)completionBlock{
     self = [super init];
     if (self) {
-        self.config=config;
-        self.mode=mode;
-        self.progressBlock=progressBlock;
-        self.completionBlock=completionBlock;
+        self.config = config;
+        self.mode = mode;
+        self.progressBlock = progressBlock;
+        self.completionBlock = completionBlock;
     }
     return self;
 }
@@ -90,14 +89,14 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 
 
 - (void)loadView{
-    UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, UEXGU_SCREEN_WIDTH, UEXGU_SCREEN_HEIGHT)];
-    imageView.backgroundColor=self.config.backgroundColor;
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, UEXGU_SCREEN_WIDTH, UEXGU_SCREEN_HEIGHT)];
+    imageView.backgroundColor = self.config.backgroundColor;
     if(self.config.backgroundImage){
         [imageView setImage:self.config.backgroundImage];
     }
-    imageView.contentMode=UIViewContentModeScaleToFill;
-    imageView.userInteractionEnabled=YES;
-    self.view=imageView;
+    imageView.contentMode = UIViewContentModeScaleToFill;
+    imageView.userInteractionEnabled = YES;
+    self.view = imageView;
 }
 
 - (void)viewDidLoad {
@@ -122,8 +121,8 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 
 #pragma mark - Sutup;
 -(void)setupTouchView{
-    CGFloat touchViewSideLength=UEXGU_SCREEN_WIDTH-2*kUexGestureUnlockTouchViewMargin;
-    self.touchView=[[uexGestureUnlockTouchView alloc] initWithSideLength:touchViewSideLength];
+    CGFloat touchViewSideLength = UEXGU_SCREEN_WIDTH-2*kUexGestureUnlockTouchViewMargin;
+    self.touchView = [[uexGestureUnlockTouchView alloc] initWithSideLength:touchViewSideLength];
     [self.touchView combineWithViewController:self];
     [self.view addSubview:self.touchView];
     @weakify(self);
@@ -138,7 +137,7 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 }
 
 - (void)setupLeftActionButton{
-    self.leftActionButton=[self defaultActionButton];
+    self.leftActionButton = [self defaultActionButton];
     [self.view addSubview:self.leftActionButton];
     @weakify(self);
     [self.leftActionButton mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -159,12 +158,12 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 
 
 - (void)setupPromptLabel{
-    uexGestureUnlockShakeLabel *promptLabel=[[uexGestureUnlockShakeLabel alloc] init];
+    uexGestureUnlockShakeLabel *promptLabel = [[uexGestureUnlockShakeLabel alloc] init];
     [promptLabel combineWithViewController:self];
-    promptLabel.font=[UIFont systemFontOfSize:kUexGestureUnlockPromptLabelFontSize];
-    promptLabel.backgroundColor=[UIColor clearColor];
-    promptLabel.numberOfLines=1;
-    self.promptLabel=promptLabel;
+    promptLabel.font = [UIFont systemFontOfSize:kUexGestureUnlockPromptLabelFontSize];
+    promptLabel.backgroundColor = [UIColor clearColor];
+    promptLabel.numberOfLines = 1;
+    self.promptLabel = promptLabel;
     [self.view addSubview:self.promptLabel];
     @weakify(self);
     [self.promptLabel mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -175,10 +174,10 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 }
 
 -(void)setupInfoView{
-    CGFloat sideLength=50;
-    uexGestureUnlockInfoView *infoView=[[uexGestureUnlockInfoView alloc]initWithSideLength:sideLength];
+    CGFloat sideLength = 50;
+    uexGestureUnlockInfoView *infoView = [[uexGestureUnlockInfoView alloc]initWithSideLength:sideLength];
     [infoView combineWithViewController:self];
-    self.infoView=infoView;
+    self.infoView = infoView;
     [self.view addSubview:self.infoView];
     @weakify(self);
     [self.infoView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -190,17 +189,17 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
     }];
 }
 -(void)setupIconView{
-    UIImageView *icon=[[UIImageView alloc]init];
-    icon.backgroundColor=[UIColor clearColor];
-    icon.userInteractionEnabled=YES;
-    CGFloat radius=UEXGU_SCREEN_WIDTH*0.15;
-    icon.layer.masksToBounds=YES;
-    icon.layer.cornerRadius=radius;
+    UIImageView *icon = [[UIImageView alloc]init];
+    icon.backgroundColor = [UIColor clearColor];
+    icon.userInteractionEnabled = YES;
+    CGFloat radius = UEXGU_SCREEN_WIDTH*0.15;
+    icon.layer.masksToBounds = YES;
+    icon.layer.cornerRadius = radius;
     if(self.config.iconImage){
         [icon setImage:self.config.iconImage];
-        icon.contentMode=UIViewContentModeScaleToFill;
+        icon.contentMode = UIViewContentModeScaleToFill;
     }
-    self.iconView=icon;
+    self.iconView = icon;
     [self.view addSubview:self.iconView];
     @weakify(self);
     [self.iconView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -214,11 +213,11 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 
 -(void)setupEventStream{
     RACSubject *eventStream = [RACSubject subject];
-    self.eventStream=eventStream;
+    self.eventStream = eventStream;
     @weakify(self);
     [self.eventStream subscribeNext:^(NSNumber *eventNumber) {
         @strongify(self);
-        uexGestureUnlockEvent event=(uexGestureUnlockEvent)[eventNumber integerValue];
+        uexGestureUnlockEvent event = (uexGestureUnlockEvent)[eventNumber integerValue];
         if(self.progressBlock){
             self.progressBlock(event);
         }
@@ -240,32 +239,32 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
                 break;
             }
             case uexGestureUnlockCodeVerificationBegin: {
-                self.prompt=self.config.verificationBeginPrompt;
-                self.signalType=uexGestureUnlockCodeVerificationSignal;
+                self.prompt = self.config.verificationBeginPrompt;
+                self.signalType = uexGestureUnlockCodeVerificationSignal;
                 [self startCodeVerification];
                 break;
             }
             case uexGestureUnlockCodeVerificationFailed: {
-                self.prompt=self.config.verificationErrorPrompt;
+                self.prompt = self.config.verificationErrorPrompt;
                 if(self.config.maximumAllowTrialTimes == 0){
-                    self.prompt=self.config.verificationErrorPrompt;
-                }else if(self.trialTimes <=self.config.maximumAllowTrialTimes){
-                    self.prompt=[NSString stringWithFormat:self.config.verificationErrorPrompt,(int)(self.config.maximumAllowTrialTimes-self.trialTimes)];
+                    self.prompt = self.config.verificationErrorPrompt;
+                }else if(self.trialTimes <= self.config.maximumAllowTrialTimes){
+                    self.prompt = [NSString stringWithFormat:self.config.verificationErrorPrompt,(int)(self.config.maximumAllowTrialTimes-self.trialTimes)];
                     
                 }else{
-                    self.prompt=@" ";
+                    self.prompt = @" ";
                     [self.eventStream sendError:[uexGestureUnlockError maxTrialTimesExceededError]];
                 }
 
                 break;
             }
             case uexGestureUnlockCodeVerificationCancelled: {
-                self.prompt=@" ";
+                self.prompt = @" ";
                 [self.eventStream sendError:[uexGestureUnlockError verificationCancelledError]];
                 break;
             }
             case uexGestureUnlockCodeVerificationSucceed: {
-                self.prompt=self.config.verificationSucceedPrompt;
+                self.prompt = self.config.verificationSucceedPrompt;
                 switch (self.mode) {
                     case uexGestureUnlockModeVerifyCode: {
                         [self.eventStream sendCompleted];
@@ -283,27 +282,27 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
                 break;
             }
             case uexGestureUnlockCodeCreationBegin: {
-                self.prompt=self.config.creationBeginPrompt;
-                self.signalType=uexGestureUnlockCodeLengthCheckSignal;
+                self.prompt = self.config.creationBeginPrompt;
+                self.signalType = uexGestureUnlockCodeLengthCheckSignal;
                 [self startCodeCreation];
                 break;
             }
             case uexGestureUnlockCodeCreationInputInvalid: {
-                self.prompt=[NSString stringWithFormat:self.config.codeLengthErrorPrompt,(int)self.config.minimumCodeLength];
+                self.prompt = [NSString stringWithFormat:self.config.codeLengthErrorPrompt,(int)self.config.minimumCodeLength];
                 break;
             }
             case uexGestureUnlockCodeCreationCheckInput: {
-                self.prompt=self.config.codeCheckPrompt;
-                self.signalType=uexGestureUnlockCodeEqualCheckSignal;
+                self.prompt = self.config.codeCheckPrompt;
+                self.signalType = uexGestureUnlockCodeEqualCheckSignal;
                 [self startCodeChecking];
                 break;
             }
             case uexGestureUnlockCodeCreationCheckFailed: {
-                self.prompt=self.config.checkErrorPrompt;
+                self.prompt = self.config.checkErrorPrompt;
                 break;
             }
             case uexGestureUnlockCodeCreationCompleted: {
-                self.prompt=self.config.creationSucceedPrompt;
+                self.prompt = self.config.creationSucceedPrompt;
                 [self.class saveGestureCode:self.inputCode];
                 [self.eventStream sendCompleted];
                 break;
@@ -336,15 +335,15 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 
 -(RACSubject *)touchStartStream{
     if(!_touchStartStream){
-        _touchStartStream=[RACSubject subject];
+        _touchStartStream = [RACSubject subject];
         [_touchStartStream subscribeNext:^(id x) {
             switch (self.signalType) {
                 case uexGestureUnlockCodeVerificationSignal: {
-                    self.prompt=self.config.verificationBeginPrompt;
+                    self.prompt = self.config.verificationBeginPrompt;
                     break;
                 }
                 case uexGestureUnlockCodeLengthCheckSignal: {
-                    self.prompt=self.config.creationBeginPrompt;
+                    self.prompt = self.config.creationBeginPrompt;
                     break;
                 }
                 case uexGestureUnlockCodeEqualCheckSignal: {
@@ -358,20 +357,20 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 }
 -(UIButton *)leftActionButton{
     if(!_leftActionButton){
-        _leftActionButton=[self defaultActionButton];
+        _leftActionButton = [self defaultActionButton];
     }
     return _leftActionButton;
 }
 -(UIButton *)rightActionButton{
     if(!_rightActionButton){
-        _rightActionButton=[self defaultActionButton];
+        _rightActionButton = [self defaultActionButton];
     }
     return _rightActionButton;
 }
 
 -(RACCommand *)verifyResultCommand{
     if(!_verifyResultCommand){
-        _verifyResultCommand=[[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSArray<NSNumber *> *input) {
+        _verifyResultCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSArray<NSNumber *> *input) {
             return [self ifCodeValidSignal:input];
         }];
     }
@@ -379,13 +378,13 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 }
 #pragma mark - Action Button Factory
 -(UIButton *)defaultActionButton{
-    UIButton *button =[UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTitleColor:self.config.normalThemeColor forState:UIControlStateNormal];
     [button setTitleColor:self.config.selectedThemeColor forState:UIControlStateHighlighted];
-    button.titleLabel.font=[UIFont systemFontOfSize:kUexGestureUnlockActionButtonFontSize];
-    button.titleLabel.numberOfLines=1;
-    button.backgroundColor=[UIColor clearColor];
-    button.hidden=YES;
+    button.titleLabel.font = [UIFont systemFontOfSize:kUexGestureUnlockActionButtonFontSize];
+    button.titleLabel.numberOfLines = 1;
+    button.backgroundColor = [UIColor clearColor];
+    button.hidden = YES;
     return button;
 }
 
@@ -422,7 +421,7 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
         [self.eventStream sendError:[uexGestureUnlockError codeNotSetError]];
     }
     @weakify(self);
-    self.currentExecution=[self.verifyResultCommand.executionSignals subscribeNext:^(RACSignal *execution) {
+    self.currentExecution = [self.verifyResultCommand.executionSignals subscribeNext:^(RACSignal *execution) {
         [execution subscribeNext:^(id x) {
             @strongify(self);
             BOOL verifyResult = [x boolValue];
@@ -440,7 +439,7 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
     [[self.rightActionButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         [self.eventStream sendNext:@(uexGestureUnlockCodeVerificationCancelled)];
     }];
-    self.rightActionButton.hidden=NO;
+    self.rightActionButton.hidden = NO;
     
 }
 
@@ -450,7 +449,7 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
     [self clear];
     [self setupInfoView];
     @weakify(self);
-    self.currentExecution=[self.verifyResultCommand.executionSignals subscribeNext:^(RACSignal *execution) {
+    self.currentExecution = [self.verifyResultCommand.executionSignals subscribeNext:^(RACSignal *execution) {
         [execution subscribeNext:^(id x) {
             @strongify(self);
             BOOL verifyResult = [x boolValue];
@@ -466,16 +465,16 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
     [[self.rightActionButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         [self.eventStream sendNext:@(uexGestureUnlockCodeCreationCancelled)];
     }];
-    self.rightActionButton.hidden=NO;
+    self.rightActionButton.hidden = NO;
 }
 
 -(void)startCodeChecking{
     if(self.currentExecution){
         [self.currentExecution dispose];
-        self.currentExecution=nil;
+        self.currentExecution = nil;
     }
     @weakify(self);
-    self.currentExecution=[self.verifyResultCommand.executionSignals subscribeNext:^(RACSignal *execution) {
+    self.currentExecution = [self.verifyResultCommand.executionSignals subscribeNext:^(RACSignal *execution) {
         [execution subscribeNext:^(id x) {
             @strongify(self);
             BOOL verifyResult = [x boolValue];
@@ -491,7 +490,7 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
     [[self.leftActionButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         [self.eventStream sendNext:@(uexGestureUnlockCodeCreationBegin)];
     }];
-    self.leftActionButton.hidden=NO;
+    self.leftActionButton.hidden = NO;
 }
 
 
@@ -501,10 +500,14 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 #pragma mark - Signals
 
 -(RACSignal *)ifCodeValidSignal:(NSArray<NSNumber *> *)input{
-    NSString *inputCode=[NSString uexGU_stringFromCodeArray:input];
+    NSMutableString *code = [NSMutableString string];
+    for(int i=0;i<[input count];i++){
+        [code appendString:[input[i] stringValue]];
+    }
+    NSString *inputCode = [code copy];
     switch (self.signalType) {
         case uexGestureUnlockCodeVerificationSignal: {
-            NSString *savedCode=[self.class getGestureCode];
+            NSString *savedCode = [self.class getGestureCode];
             return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
                 if([savedCode isEqual:inputCode]){
                     [subscriber sendNext:@(YES)];
@@ -520,8 +523,8 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
         }
         case uexGestureUnlockCodeLengthCheckSignal: {
             return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-                if([inputCode length]>=self.config.minimumCodeLength){
-                    self.inputCode=inputCode;
+                if([inputCode length] >= self.config.minimumCodeLength){
+                    self.inputCode = inputCode;
                     [subscriber sendNext:@(YES)];
                     if(self.infoView) {
                         [self.infoView SelectCircles:input];
@@ -559,8 +562,8 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 #pragma mark - Utility
 
 +(BOOL)isGestureCodeSet{
-    NSString *gestureCode=[self getGestureCode];
-    if(!gestureCode ||[gestureCode length]==0){
+    NSString *gestureCode = [self getGestureCode];
+    if(!gestureCode ||[gestureCode length] == 0){
         return NO;
     }else{
         return YES;
@@ -570,20 +573,20 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 -(void)clear{
     if(self.currentExecution){
         [self.currentExecution dispose];
-        self.currentExecution=nil;
+        self.currentExecution = nil;
     }
     if(self.infoView){
         [self.infoView removeFromSuperview];
-        self.infoView=nil;
+        self.infoView = nil;
     }
     if(self.iconView){
         [self.iconView removeFromSuperview];
-        self.iconView=nil;
+        self.iconView = nil;
     }
-    self.leftActionButton.hidden=YES;
-    self.rightActionButton.hidden=YES;
-    self.trialTimes=0;
-    self.inputCode=@"";
+    self.leftActionButton.hidden = YES;
+    self.rightActionButton.hidden = YES;
+    self.trialTimes = 0;
+    self.inputCode = @"";
 }
 
 

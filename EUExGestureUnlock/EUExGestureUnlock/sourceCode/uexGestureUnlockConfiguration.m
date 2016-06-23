@@ -22,7 +22,7 @@
  */
 
 #import "uexGestureUnlockConfiguration.h"
-#import "UIColor+HtmlColor.h"
+#import <AppCanKit/AppCanKit.h>
 
 NSString *const kUexGestureUnlockConfigurationSaveGestureCodeKey=@"kUexGestureUnlockConfigurationSaveGestureCodeKey";
 @implementation uexGestureUnlockConfiguration
@@ -32,34 +32,34 @@ NSString *const kUexGestureUnlockConfigurationSaveGestureCodeKey=@"kUexGestureUn
 +(instancetype)defaultConfiguration{
     uexGestureUnlockConfiguration *config=[[self alloc] init];
     if(config) {
-        config.minimumCodeLength=4;
-        config.maximumAllowTrialTimes=5;
+        config.minimumCodeLength = 4;
+        config.maximumAllowTrialTimes = 5;
         
-        config.normalThemeColor=[UIColor uexGU_ColorFromHtmlString:@"#002849"];
-        config.selectedThemeColor=[UIColor uexGU_ColorFromHtmlString:@"#22B2F6"];
-        config.errorThemeColor=[UIColor uexGU_ColorFromHtmlString:@"#FE525C"];
-        config.backgroundColor=[UIColor uexGU_ColorFromHtmlString:@"#F1F1F1"];
+        config.normalThemeColor = [UIColor ac_ColorWithHTMLColorString:@"#002849"];
+        config.selectedThemeColor = [UIColor ac_ColorWithHTMLColorString:@"#22B2F6"];
+        config.errorThemeColor = [UIColor ac_ColorWithHTMLColorString:@"#FE525C"];
+        config.backgroundColor = [UIColor ac_ColorWithHTMLColorString:@"#F1F1F1"];
         
         
-        config.creationBeginPrompt=@"请设置手势密码";//设置手势密码前的提示文字
-        config.codeLengthErrorPrompt=@"请至少连续绘制%d个点";//密码长度低于最短长度的错误提示文字
-        config.codeCheckPrompt=@"请再次绘制手势密码";//确认手势手势密码，要求再次绘制的提示文字
-        config.checkErrorPrompt=@"与首次绘制不一致，请再次绘制";//再次绘制的图案不一致的提示文字
-        config.creationSucceedPrompt=@"手势密码设置成功";//设置成功的提示文字
-        config.verificationBeginPrompt=@"请验证手势密码";//验证手势前的提示文字
-        config.verificationErrorPrompt=@"验证错误!您还可以尝试%d次";//验证手势密码失败的提示文字
-        config.verificationSucceedPrompt=@"验证通过";//验证手势密码成功的提示文字
+        config.creationBeginPrompt = @"请设置手势密码";//设置手势密码前的提示文字
+        config.codeLengthErrorPrompt = @"请至少连续绘制%d个点";//密码长度低于最短长度的错误提示文字
+        config.codeCheckPrompt = @"请再次绘制手势密码";//确认手势手势密码，要求再次绘制的提示文字
+        config.checkErrorPrompt = @"与首次绘制不一致，请再次绘制";//再次绘制的图案不一致的提示文字
+        config.creationSucceedPrompt = @"手势密码设置成功";//设置成功的提示文字
+        config.verificationBeginPrompt = @"请验证手势密码";//验证手势前的提示文字
+        config.verificationErrorPrompt = @"验证错误!您还可以尝试%d次";//验证手势密码失败的提示文字
+        config.verificationSucceedPrompt = @"验证通过";//验证手势密码成功的提示文字
         
-        config.cancelVerificationButtonTitle=@"忘记密码?";
-        config.cancelCreationButtonTitle=@"取消设置手势密码";
-        config.restartCreationButtonTitle=@"重新设置手势密码";
+        config.cancelVerificationButtonTitle = @"忘记密码?";
+        config.cancelCreationButtonTitle = @"取消设置手势密码";
+        config.restartCreationButtonTitle = @"重新设置手势密码";
         
-        config.errorRemainInterval=1;//错误状态,保留1s
-        config.successRemainInterval=0.2;//验证成功,窗口保留0.2s再关闭
+        config.errorRemainInterval = 1;//错误状态,保留1s
+        config.successRemainInterval = 0.2;//验证成功,窗口保留0.2s再关闭
 
         
-        config.backgroundImage=nil;
-        config.iconImage=nil;
+        config.backgroundImage = nil;
+        config.iconImage = nil;
 
     }
     return config;

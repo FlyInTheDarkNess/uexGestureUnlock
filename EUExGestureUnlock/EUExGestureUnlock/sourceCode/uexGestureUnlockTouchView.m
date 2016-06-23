@@ -26,7 +26,7 @@
 #import "uexGestureUnlockViewController.h"
 
 
-static CGFloat kCircleConnectLineWidth =1;//连线宽度
+static CGFloat kCircleConnectLineWidth = 1;//连线宽度
 
 
 
@@ -46,7 +46,7 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
 
 -(void)combineWithViewController:(uexGestureUnlockViewController *)controller{
     [super combineWithViewController:controller];
-    self.controller=controller;
+    self.controller = controller;
     //配置verifyResultCommand
     @weakify(self);
     [[self.controller.verifyResultCommand executionSignals] subscribeNext:^(RACSignal *execution) {
@@ -60,7 +60,7 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
                 //验证失败，显示错误情况
                 [[self.selectedCircles rac_sequence]
                  all:^BOOL(uexGestureUnlockCircle *circle) {//把所有选中的圆置为error
-                     circle.status=uexGestureUnlockCircleStatusError;
+                     circle.status = uexGestureUnlockCircleStatusError;
                      return YES;
                  }];
                 [self setNeedsDisplay];
@@ -140,8 +140,8 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
     [self.controller.verifyResultCommand execute:codeArray];
 }
 -(void)dealWithTouchs:(NSSet<UITouch *> *)touches{
-    UITouch *touch=[touches anyObject];
-    CGPoint point=[touch locationInView:self];//触摸点
+    UITouch *touch = [touches anyObject];
+    CGPoint point = [touch locationInView:self];//触摸点
     self.currentPoint=point;
     [[self.subviews rac_sequence]
      any:^BOOL(uexGestureUnlockCircle *circle) {
@@ -170,7 +170,7 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
         return;
     }
     //计算arrowAngle
-    uexGestureUnlockCircle *lastButOneCircle =[self.selectedCircles objectAtIndex:[self.selectedCircles count]-2];//倒数第二个圆
+    uexGestureUnlockCircle *lastButOneCircle = [self.selectedCircles objectAtIndex:[self.selectedCircles count]-2];//倒数第二个圆
     CGFloat last_1_x = circle.center.x;
     CGFloat last_1_y = circle.center.y;
     CGFloat last_2_x = lastButOneCircle.center.x;
@@ -189,9 +189,9 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
              @strongify(self);
              
              if(![self.selectedCircles containsObject:circle]){//如果这个圆没被选择
-                 circle.arrowAngle=lastButOneCircle.arrowAngle;//更新这个圆的arrowAngle
-                 circle.status=uexGestureUnlockCircleStatusSelected;
-                 circle.showArrow=YES;
+                 circle.arrowAngle = lastButOneCircle.arrowAngle;//更新这个圆的arrowAngle
+                 circle.status = uexGestureUnlockCircleStatusSelected;
+                 circle.showArrow = YES;
                  [self.selectedCircles insertObject:circle atIndex:self.selectedCircles.count-1];
                  //插入到倒数第二的位置
              }
@@ -207,13 +207,13 @@ static CGFloat kCircleConnectLineWidth =1;//连线宽度
     if(!self.needReset){
         return;
     }
-    self.needReset=NO;
+    self.needReset = NO;
     [self.selectedCircles removeAllObjects];
     [[self.circles rac_sequence]
      all:^BOOL(uexGestureUnlockCircle * circle) {
-        circle.status=uexGestureUnlockCircleStatusNormal;
-        circle.arrowAngle=0;
-        circle.showArrow=NO;
+        circle.status = uexGestureUnlockCircleStatusNormal;
+        circle.arrowAngle = 0;
+        circle.showArrow = NO;
          
         return YES;
     }];

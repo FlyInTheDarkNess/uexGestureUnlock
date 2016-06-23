@@ -71,7 +71,7 @@
     }];
 }
 -(void)deselectAll{
-    if([self.selectedCircles count]==0){
+    if([self.selectedCircles count] == 0){
         return;
     }
     [self setSelectedCirclesStatus:uexGestureUnlockCircleStatusNormal];

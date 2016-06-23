@@ -24,8 +24,8 @@
 #import "uexGestureUnlockShakeLabel.h"
 #import "uexGestureUnlockViewController.h"
 
-static CGFloat kUexGestureUnlockShakeDuration=0.8;
-static NSString *const kUexGestureUnlockShakeAnimationKey=@"kUexGestureUnlockShakeAnimationKey";
+static CGFloat kUexGestureUnlockShakeDuration = 0.8;
+static NSString *const kUexGestureUnlockShakeAnimationKey = @"kUexGestureUnlockShakeAnimationKey";
 
 @interface uexGestureUnlockShakeLabel()
 @property (nonatomic,weak)uexGestureUnlockConfiguration *config;
@@ -40,13 +40,13 @@ static NSString *const kUexGestureUnlockShakeAnimationKey=@"kUexGestureUnlockSha
 }
 */
 -(void)combineWithViewController:(uexGestureUnlockViewController *)controller{
-    self.config=controller.config;
-    self.backgroundColor=[UIColor clearColor];
+    self.config = controller.config;
+    self.backgroundColor = [UIColor clearColor];
     @weakify(self);
     [controller.verifyResultCommand.executionSignals subscribeNext:^(RACSignal *execution) {
         [execution subscribeNext:^(id x){
             @strongify(self);
-             BOOL verifyResult=[x boolValue];
+             BOOL verifyResult = [x boolValue];
             if(verifyResult){
                 [self setTextColor:self.config.normalThemeColor];
             }else{
@@ -62,7 +62,7 @@ static NSString *const kUexGestureUnlockShakeAnimationKey=@"kUexGestureUnlockSha
 
     }];
     [self setTextColor:self.config.normalThemeColor];
-    RAC(self,text)=[RACObserve(controller, prompt) distinctUntilChanged];
+    RAC(self,text) = [RACObserve(controller, prompt) distinctUntilChanged];
 }
 
 
