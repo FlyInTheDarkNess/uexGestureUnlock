@@ -24,8 +24,10 @@
 #import "uexGestureUnlockError.h"
 
 @implementation uexGestureUnlockError
+
+static NSString *const kUexGestureUnlockErrorDomain = @"com.appcan.uexGestureUnlock.errorDomain";
 +(NSError *)errorWithCode:(NSInteger)code description:(NSString *)desc{
-    return [NSError errorWithDomain:desc code:code userInfo:nil];
+    return [NSError errorWithDomain:kUexGestureUnlockErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey: desc}];
 }
 
 +(NSError *)codeNotSetError{

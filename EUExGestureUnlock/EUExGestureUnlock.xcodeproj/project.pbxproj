@@ -20,7 +20,7 @@
 		4247B0B31C040C7E0048CCDF /* Masonry.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4247B0AB1C02BE060048CCDF /* Masonry.framework */; };
 		4247B0B41C040C830048CCDF /* ReactiveCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 42331F861BFEAE3D0061A9C4 /* ReactiveCocoa.framework */; };
 		427778301BFD5DAB00AA5C41 /* EUExGestureUnlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 4277782F1BFD5DAB00AA5C41 /* EUExGestureUnlock.m */; };
-		42F20B0C1D1BCBFE00DA6EEA /* AppCanKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F20B0B1D1BCBFE00DA6EEA /* AppCanKit.framework */; };
+		427B14CB1D77C82600FF0024 /* AppCanKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 427B14CA1D77C82600FF0024 /* AppCanKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -65,7 +65,7 @@
 		427778421BFD6B8B00AA5C41 /* EUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUtility.h; sourceTree = "<group>"; };
 		427778431BFD6B8B00AA5C41 /* WidgetOneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WidgetOneDelegate.h; sourceTree = "<group>"; };
 		4277785A1BFD6BBE00AA5C41 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		42F20B0B1D1BCBFE00DA6EEA /* AppCanKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCanKit.framework; sourceTree = "<group>"; };
+		427B14CA1D77C82600FF0024 /* AppCanKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCanKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +74,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4247B0AC1C02BE070048CCDF /* Masonry.framework in Frameworks */,
-				42F20B0C1D1BCBFE00DA6EEA /* AppCanKit.framework in Frameworks */,
+				427B14CB1D77C82600FF0024 /* AppCanKit.framework in Frameworks */,
 				42331F871BFEAE3D0061A9C4 /* ReactiveCocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,7 +101,6 @@
 		427778241BFD5D1700AA5C41 /* EUExGestureUnlock */ = {
 			isa = PBXGroup;
 			children = (
-				42F20B0B1D1BCBFE00DA6EEA /* AppCanKit.framework */,
 				4277784F1BFD6BBE00AA5C41 /* sourceCode */,
 				4277783E1BFD6B8B00AA5C41 /* engineHeader */,
 				4277782E1BFD5DAB00AA5C41 /* EUExGestureUnlock.h */,
@@ -125,6 +124,7 @@
 		4277784F1BFD6BBE00AA5C41 /* sourceCode */ = {
 			isa = PBXGroup;
 			children = (
+				427B14CA1D77C82600FF0024 /* AppCanKit.framework */,
 				4247B0AB1C02BE060048CCDF /* Masonry.framework */,
 				42331F861BFEAE3D0061A9C4 /* ReactiveCocoa.framework */,
 				4277785A1BFD6BBE00AA5C41 /* PrefixHeader.pch */,

@@ -39,7 +39,7 @@
 {
     self = [super initWithWebViewEngine:engine];
     if (self) {
-        self.config = [uexGestureUnlockConfiguration defaultConfiguration];
+        _config = [uexGestureUnlockConfiguration defaultConfiguration];
     }
     return self;
 }
@@ -53,29 +53,30 @@
 }
 
 #pragma mark - uex API
-- (NSNumber *)isGestureCodeSet:(NSMutableArray *)inArguments{
+- (UEX_BOOL)isGestureCodeSet:(NSMutableArray *)inArguments{
     BOOL isGestureCodeSet=[uexGestureUnlockViewController isGestureCodeSet];
     [self.webViewEngine callbackWithFunctionKeyPath:@"uexGestureUnlock.cbIsGestureCodeSet"
                                           arguments:ACArgsPack(@{@"result":@(isGestureCodeSet)}.ac_JSONFragment)];
     
-    return @(isGestureCodeSet);
+    return isGestureCodeSet ? UEX_TRUE : UEX_FALSE;
 }
 
 - (void)config:(NSMutableArray *)inArguments{
     self.config = [uexGestureUnlockConfiguration defaultConfiguration];
     ACArgsUnpack(NSDictionary *info) = inArguments;
-    NSArray<NSString *> *stringKeys = @[@"creationBeginPrompt",
-                          @"codeLengthErrorPrompt",
-                          @"codeCheckPrompt",
-                          @"checkErrorPrompt",
-                          @"creationSucceedPrompt",
-                          @"verificationBeginPrompt",
-                          @"verificationErrorPrompt",
-                          @"verificationSucceedPrompt",
-                          @"cancelVerificationButtonTitle",
-                          @"cancelCreationButtonTitle",
-                          @"restartCreationButtonTitle"
-                          ];
+    NSArray<NSString *> *stringKeys = @[
+                                        @"creationBeginPrompt",
+                                        @"codeLengthErrorPrompt",
+                                        @"codeCheckPrompt",
+                                        @"checkErrorPrompt",
+                                        @"creationSucceedPrompt",
+                                        @"verificationBeginPrompt",
+                                        @"verificationErrorPrompt",
+                                        @"verificationSucceedPrompt",
+                                        @"cancelVerificationButtonTitle",
+                                        @"cancelCreationButtonTitle",
+                                        @"restartCreationButtonTitle"
+                                        ];
     for (NSString *aKey in stringKeys) {
         NSString *value = stringArg(info[aKey]);
         if (value) {
@@ -84,8 +85,9 @@
         
         
     }
-    NSArray<NSString *> *intervalKeys = @[@"errorRemainInterval",
-                                      @"successRemainInterval",
+    NSArray<NSString *> *intervalKeys = @[
+                                          @"errorRemainInterval",
+                                          @"successRemainInterval",
                                       ];
     for (NSString *aKey in intervalKeys) {
         if(![info objectForKey:aKey]){
@@ -93,7 +95,8 @@
         }
         [self.config setValue:@([info[aKey] doubleValue]/1000) forKeyPath:aKey];
     }
-    NSArray<NSString *> *integerKeys = @[@"minimumCodeLength",
+    NSArray<NSString *> *integerKeys = @[
+                                        @"minimumCodeLength",
                                         @"maximumAllowTrialTimes",
                                         ];
     for (NSString *aKey in integerKeys) {
@@ -102,7 +105,8 @@
         }
         [self.config setValue:@([info[aKey] integerValue]) forKeyPath:aKey];
     }
-    NSArray<NSString *> *imageKeys = @[@"backgroundImage",
+    NSArray<NSString *> *imageKeys = @[
+                                       @"backgroundImage",
                                        @"iconImage",
                                        ];
     for (NSString *aKey in imageKeys) {
@@ -151,16 +155,18 @@
                      }
                      completion:^(BOOL isFinished, NSError *error) {
                          @strongify(self);
+                         UEX_ERROR err = kUexNoError;
                          NSMutableDictionary *dict = [NSMutableDictionary dictionary];
                          [dict setValue:@(isFinished) forKey:@"isFinished"];
                          if(error){
+                             err = uexErrorMake(error.code,error.localizedDescription);
                              [dict setValue:@(error.code) forKey:@"errorCode"];
-                             [dict setValue:error.domain forKey:@"errorString"];
+                             [dict setValue:error.localizedDescription forKey:@"errorString"];
                          }
                          
                          [self.webViewEngine callbackWithFunctionKeyPath:@"uexGestureUnlock.cbVerify"
                                                                arguments:ACArgsPack(dict.ac_JSONFragment)];
-                         [cb executeWithArguments:ACArgsPack(dict)];
+                         [cb executeWithArguments:ACArgsPack(err,dict)];
                          [self dismissController];
                      }];
     [[self.webViewEngine viewController]presentViewController:self.controller animated:YES completion:nil];
@@ -199,16 +205,18 @@
                      }
                      completion:^(BOOL isFinished, NSError *error) {
                          @strongify(self);
+                         UEX_ERROR err = kUexNoError;
                          NSMutableDictionary *dict=[NSMutableDictionary dictionary];
                          [dict setValue:@(isFinished) forKey:@"isFinished"];
-                         if(error){
+                         if(error || !isFinished){
+                             err = uexErrorMake(error.code,error.localizedDescription);
                              [dict setValue:@(error.code) forKey:@"errorCode"];
-                             [dict setValue:error.domain forKey:@"errorString"];
+                             [dict setValue:error.localizedDescription forKey:@"errorString"];
                          }
                          
                          [self.webViewEngine callbackWithFunctionKeyPath:@"uexGestureUnlock.cbCreate"
                                                                arguments:ACArgsPack(dict.ac_JSONFragment)];
-                         [cb executeWithArguments:ACArgsPack(dict)];
+                         [cb executeWithArguments:ACArgsPack(err,dict)];
                          [self dismissController];
                          
                      }];
