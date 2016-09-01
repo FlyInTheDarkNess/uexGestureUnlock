@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
     <plugin
-        uexName="uexGestureUnlock" version="4.0.0" build="3">
-        <info>3:支持4.0引擎</info>
-        <build>2:添加IDE支持</build>
-        <build>1:修复maximumAllowTrialTimes拼写错误</build>
-        <build>0:手势解锁 功能插件</build>
+        uexName="uexGestureUnlock" version="4.0.0" build="0">
+        <info>0: 手势解锁功能插件</info>
     </plugin>
 </uexplugins>
