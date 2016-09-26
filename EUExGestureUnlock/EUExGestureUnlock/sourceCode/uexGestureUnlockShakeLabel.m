@@ -27,7 +27,7 @@
 static CGFloat kUexGestureUnlockShakeDuration=0.8;
 static NSString *const kUexGestureUnlockShakeAnimationKey=@"kUexGestureUnlockShakeAnimationKey";
 
-@interface uexGestureUnlockShakeLabel()
+@interface uexGestureUnlockShakeLabel()<CAAnimationDelegate>
 @property (nonatomic,weak)uexGestureUnlockConfiguration *config;
 @end
 @implementation uexGestureUnlockShakeLabel
