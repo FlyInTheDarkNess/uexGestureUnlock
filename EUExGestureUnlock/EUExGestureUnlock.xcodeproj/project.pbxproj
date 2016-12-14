@@ -10,18 +10,17 @@
 		0E0107BE1BFF7237007B8873 /* uexGestureUnlockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0107BD1BFF7237007B8873 /* uexGestureUnlockViewController.m */; };
 		0E6A3AC41C000C120014EE3B /* uexGestureUnlockShakeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6A3AC31C000C120014EE3B /* uexGestureUnlockShakeLabel.m */; };
 		42331F751BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 42331F741BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.m */; };
-		42331F781BFDC01C0061A9C4 /* UIColor+HtmlColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 42331F771BFDC01C0061A9C4 /* UIColor+HtmlColor.m */; };
 		42331F811BFDD5E50061A9C4 /* uexGestureUnlockBaseCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42331F801BFDD5E50061A9C4 /* uexGestureUnlockBaseCircleView.m */; };
 		42331F841BFDD8080061A9C4 /* uexGestureUnlockCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 42331F831BFDD8080061A9C4 /* uexGestureUnlockCircle.m */; };
 		42331F871BFEAE3D0061A9C4 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42331F861BFEAE3D0061A9C4 /* ReactiveCocoa.framework */; };
 		42331F8A1BFEC37C0061A9C4 /* uexGestureUnlockTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42331F891BFEC37C0061A9C4 /* uexGestureUnlockTouchView.m */; };
 		42331F8D1BFF204E0061A9C4 /* uexGestureUnlockInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42331F8C1BFF204E0061A9C4 /* uexGestureUnlockInfoView.m */; };
-		4247B0A91C02AC390048CCDF /* NSString+uexGestureUnlockCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247B0A81C02AC390048CCDF /* NSString+uexGestureUnlockCode.m */; };
 		4247B0AC1C02BE070048CCDF /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4247B0AB1C02BE060048CCDF /* Masonry.framework */; };
 		4247B0AF1C0323210048CCDF /* uexGestureUnlockError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247B0AE1C0323210048CCDF /* uexGestureUnlockError.m */; };
 		4247B0B31C040C7E0048CCDF /* Masonry.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4247B0AB1C02BE060048CCDF /* Masonry.framework */; };
 		4247B0B41C040C830048CCDF /* ReactiveCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 42331F861BFEAE3D0061A9C4 /* ReactiveCocoa.framework */; };
 		427778301BFD5DAB00AA5C41 /* EUExGestureUnlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 4277782F1BFD5DAB00AA5C41 /* EUExGestureUnlock.m */; };
+		427B14CB1D77C82600FF0024 /* AppCanKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 427B14CA1D77C82600FF0024 /* AppCanKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,8 +44,6 @@
 		0E6A3AC31C000C120014EE3B /* uexGestureUnlockShakeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uexGestureUnlockShakeLabel.m; sourceTree = "<group>"; };
 		42331F731BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uexGestureUnlockConfiguration.h; sourceTree = "<group>"; };
 		42331F741BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uexGestureUnlockConfiguration.m; sourceTree = "<group>"; };
-		42331F761BFDC01C0061A9C4 /* UIColor+HtmlColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HtmlColor.h"; sourceTree = "<group>"; };
-		42331F771BFDC01C0061A9C4 /* UIColor+HtmlColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HtmlColor.m"; sourceTree = "<group>"; };
 		42331F7F1BFDD5E50061A9C4 /* uexGestureUnlockBaseCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uexGestureUnlockBaseCircleView.h; sourceTree = "<group>"; };
 		42331F801BFDD5E50061A9C4 /* uexGestureUnlockBaseCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uexGestureUnlockBaseCircleView.m; sourceTree = "<group>"; };
 		42331F821BFDD8080061A9C4 /* uexGestureUnlockCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uexGestureUnlockCircle.h; sourceTree = "<group>"; };
@@ -56,8 +53,6 @@
 		42331F891BFEC37C0061A9C4 /* uexGestureUnlockTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uexGestureUnlockTouchView.m; sourceTree = "<group>"; };
 		42331F8B1BFF204E0061A9C4 /* uexGestureUnlockInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uexGestureUnlockInfoView.h; sourceTree = "<group>"; };
 		42331F8C1BFF204E0061A9C4 /* uexGestureUnlockInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uexGestureUnlockInfoView.m; sourceTree = "<group>"; };
-		4247B0A71C02AC390048CCDF /* NSString+uexGestureUnlockCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+uexGestureUnlockCode.h"; sourceTree = "<group>"; };
-		4247B0A81C02AC390048CCDF /* NSString+uexGestureUnlockCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+uexGestureUnlockCode.m"; sourceTree = "<group>"; };
 		4247B0AB1C02BE060048CCDF /* Masonry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Masonry.framework; sourceTree = "<group>"; };
 		4247B0AD1C0323210048CCDF /* uexGestureUnlockError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uexGestureUnlockError.h; sourceTree = "<group>"; };
 		4247B0AE1C0323210048CCDF /* uexGestureUnlockError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uexGestureUnlockError.m; sourceTree = "<group>"; };
@@ -69,16 +64,8 @@
 		427778411BFD6B8B00AA5C41 /* EUExBaseDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBaseDefine.h; sourceTree = "<group>"; };
 		427778421BFD6B8B00AA5C41 /* EUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUtility.h; sourceTree = "<group>"; };
 		427778431BFD6B8B00AA5C41 /* WidgetOneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WidgetOneDelegate.h; sourceTree = "<group>"; };
-		427778511BFD6BBE00AA5C41 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
-		427778521BFD6BBE00AA5C41 /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONParser.h; sourceTree = "<group>"; };
-		427778531BFD6BBE00AA5C41 /* MD5Digest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5Digest.h; sourceTree = "<group>"; };
-		427778541BFD6BBE00AA5C41 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
-		427778551BFD6BBE00AA5C41 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
-		427778561BFD6BBE00AA5C41 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
-		427778571BFD6BBE00AA5C41 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
-		427778581BFD6BBE00AA5C41 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
-		427778591BFD6BBE00AA5C41 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		4277785A1BFD6BBE00AA5C41 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		427B14CA1D77C82600FF0024 /* AppCanKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCanKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +74,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4247B0AC1C02BE070048CCDF /* Masonry.framework in Frameworks */,
+				427B14CB1D77C82600FF0024 /* AppCanKit.framework in Frameworks */,
 				42331F871BFEAE3D0061A9C4 /* ReactiveCocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,13 +124,9 @@
 		4277784F1BFD6BBE00AA5C41 /* sourceCode */ = {
 			isa = PBXGroup;
 			children = (
+				427B14CA1D77C82600FF0024 /* AppCanKit.framework */,
 				4247B0AB1C02BE060048CCDF /* Masonry.framework */,
 				42331F861BFEAE3D0061A9C4 /* ReactiveCocoa.framework */,
-				427778501BFD6BBE00AA5C41 /* JSON */,
-				42331F761BFDC01C0061A9C4 /* UIColor+HtmlColor.h */,
-				42331F771BFDC01C0061A9C4 /* UIColor+HtmlColor.m */,
-				4247B0A71C02AC390048CCDF /* NSString+uexGestureUnlockCode.h */,
-				4247B0A81C02AC390048CCDF /* NSString+uexGestureUnlockCode.m */,
 				4277785A1BFD6BBE00AA5C41 /* PrefixHeader.pch */,
 				42331F731BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.h */,
 				42331F741BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.m */,
@@ -162,22 +146,6 @@
 				4247B0AE1C0323210048CCDF /* uexGestureUnlockError.m */,
 			);
 			path = sourceCode;
-			sourceTree = "<group>";
-		};
-		427778501BFD6BBE00AA5C41 /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-				427778511BFD6BBE00AA5C41 /* JSON.h */,
-				427778521BFD6BBE00AA5C41 /* JSONParser.h */,
-				427778531BFD6BBE00AA5C41 /* MD5Digest.h */,
-				427778541BFD6BBE00AA5C41 /* NSObject+SBJSON.h */,
-				427778551BFD6BBE00AA5C41 /* NSString+SBJSON.h */,
-				427778561BFD6BBE00AA5C41 /* SBJSON.h */,
-				427778571BFD6BBE00AA5C41 /* SBJsonBase.h */,
-				427778581BFD6BBE00AA5C41 /* SBJsonParser.h */,
-				427778591BFD6BBE00AA5C41 /* SBJsonWriter.h */,
-			);
-			path = JSON;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,7 +205,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				42331F811BFDD5E50061A9C4 /* uexGestureUnlockBaseCircleView.m in Sources */,
-				4247B0A91C02AC390048CCDF /* NSString+uexGestureUnlockCode.m in Sources */,
 				42331F8D1BFF204E0061A9C4 /* uexGestureUnlockInfoView.m in Sources */,
 				427778301BFD5DAB00AA5C41 /* EUExGestureUnlock.m in Sources */,
 				0E0107BE1BFF7237007B8873 /* uexGestureUnlockViewController.m in Sources */,
@@ -246,7 +213,6 @@
 				42331F751BFDB43F0061A9C4 /* uexGestureUnlockConfiguration.m in Sources */,
 				4247B0AF1C0323210048CCDF /* uexGestureUnlockError.m in Sources */,
 				0E6A3AC41C000C120014EE3B /* uexGestureUnlockShakeLabel.m in Sources */,
-				42331F781BFDC01C0061A9C4 /* UIColor+HtmlColor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +310,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EUExGestureUnlock/sourceCode",
+					"$(PROJECT_DIR)/EUExGestureUnlock",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/EUExGestureUnlock/sourceCode/PrefixHeader.pch;
@@ -361,6 +328,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EUExGestureUnlock/sourceCode",
+					"$(PROJECT_DIR)/EUExGestureUnlock",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = $SRCROOT/EUExGestureUnlock/sourceCode/PrefixHeader.pch;

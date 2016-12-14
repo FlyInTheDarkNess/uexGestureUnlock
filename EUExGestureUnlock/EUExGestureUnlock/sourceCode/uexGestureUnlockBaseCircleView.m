@@ -32,21 +32,21 @@
 {
     self = [super init];
     if (self) {
-        self.sideLength=sideLength;
-        self.circles=[NSMutableArray array];
-        self.selectedCircles=[NSMutableArray array];
+        self.sideLength = sideLength;
+        self.circles = [NSMutableArray array];
+        self.selectedCircles = [NSMutableArray array];
     }
     return self;
 }
 
 -(void)combineWithViewController:(uexGestureUnlockViewController *)controller{
-    self.config=controller.config;
-    self.backgroundColor=[UIColor clearColor];
+    self.config = controller.config;
+    self.backgroundColor = [UIColor clearColor];
     for (int i=0; i<9; i++) {
         [self addSubview:[self getCircle]];
     }
 
-    CGFloat radius=self.sideLength/12;
+    CGFloat radius = self.sideLength/12;
     
     @weakify(self);
     //排列9个圆，并将他们添加到circles数组中
@@ -56,14 +56,14 @@
       }]
      all:^BOOL(uexGestureUnlockCircle * circle) {
          @strongify(self);
-         NSInteger index=[self circles].count;
-         circle.tag=index+1;
-         NSUInteger row=index/3;
-         NSUInteger col=index%3;
-         CGFloat x=radius*(1+4*row);
-         CGFloat y=radius*(1+4*col);
+         NSInteger index = [self circles].count;
+         circle.tag = index+1;
+         NSUInteger row = index/3;
+         NSUInteger col = index%3;
+         CGFloat x = radius*(1+4*row);
+         CGFloat y = radius*(1+4*col);
          CGRect frame = CGRectMake(x, y, radius*2, radius*2);
-         circle.frame=frame;
+         circle.frame = frame;
          [self.circles addObject:circle];
          return YES;
      }];

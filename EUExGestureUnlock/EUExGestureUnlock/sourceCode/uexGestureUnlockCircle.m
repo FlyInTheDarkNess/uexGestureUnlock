@@ -37,20 +37,20 @@ static CGFloat kInnerCircleRatio = 0.6;//内部实心圆所占的比例
 @implementation uexGestureUnlockCircle
 -(instancetype)initWithType:(uexGestureUnlockCircleType)type
               configuration:(uexGestureUnlockConfiguration *)config{
-    self=[super init];
+    self = [super init];
     if(self){
-        self.type=type;
-        self.config=config;
+        self.type = type;
+        self.config = config;
         [self setup];
     }
     return self;
 }
 
 -(void)setup{
-    self.backgroundColor=[UIColor clearColor];
-    self.status=uexGestureUnlockCircleStatusNormal;
+    self.backgroundColor = [UIColor clearColor];
+    self.status = uexGestureUnlockCircleStatusNormal;
     @weakify(self);
-    RACSignal *arrowNeedRedrawSignal=[RACObserve(self, arrowAngle)
+    RACSignal *arrowNeedRedrawSignal = [RACObserve(self, arrowAngle)
                                       filter:^BOOL(id value) {
         @strongify(self);
         return self.showArrow;
@@ -59,19 +59,19 @@ static CGFloat kInnerCircleRatio = 0.6;//内部实心圆所占的比例
                                       distinctUntilChanged]
                                      doNext:^(id value) {
         @strongify(self);
-        uexGestureUnlockCircleStatus status =(uexGestureUnlockCircleStatus)[value integerValue];
+        uexGestureUnlockCircleStatus status = (uexGestureUnlockCircleStatus)[value integerValue];
         switch (status) {
             case uexGestureUnlockCircleStatusNormal: {
-                self.themeColor=self.config.normalThemeColor;
+                self.themeColor = self.config.normalThemeColor;
                 break;
             }
             case uexGestureUnlockCircleStatusSelected: {
-                self.themeColor=self.config.selectedThemeColor;
+                self.themeColor = self.config.selectedThemeColor;
                 break;
             }
             case uexGestureUnlockCircleStatusError: {
 
-                self.themeColor=self.config.errorThemeColor;
+                self.themeColor = self.config.errorThemeColor;
                 break;
             }
         }

@@ -22,10 +22,8 @@
  */
 
 #import "EUExGestureUnlock.h"
-#import "JSON.h"
 #import "uexGestureUnlockViewController.h"
-#import "UIColor+HtmlColor.h"
-#import "EUtility.h"
+#import <AppCanKit/AppCanKit.h>
 
 @interface EUExGestureUnlock()
 @property (nonatomic,strong)uexGestureUnlockConfiguration *config;
@@ -36,57 +34,60 @@
 @implementation EUExGestureUnlock
 
 #pragma mark - Life Cycle
--(instancetype)initWithBrwView:(EBrowserView *)eInBrwView{
-    self=[super initWithBrwView:eInBrwView];
-    if(self) {
-        self.config=[uexGestureUnlockConfiguration defaultConfiguration];
+
+- (instancetype)initWithWebViewEngine:(id<AppCanWebViewEngineObject>)engine
+{
+    self = [super initWithWebViewEngine:engine];
+    if (self) {
+        _config = [uexGestureUnlockConfiguration defaultConfiguration];
     }
     return self;
 }
 
--(void)clean{
+
+- (void)clean{
     [self dismissController];
 }
--(void)dealloc{
+- (void)dealloc{
     [self clean];
 }
 
 #pragma mark - uex API
--(void)isGestureCodeSet:(NSMutableArray *)inArguments{
+- (UEX_BOOL)isGestureCodeSet:(NSMutableArray *)inArguments{
     BOOL isGestureCodeSet=[uexGestureUnlockViewController isGestureCodeSet];
-    [self callbackJSONwithName:@"cbIsGestureCodeSet" object:@{@"result":@(isGestureCodeSet)}];
+    [self.webViewEngine callbackWithFunctionKeyPath:@"uexGestureUnlock.cbIsGestureCodeSet"
+                                          arguments:ACArgsPack(@{@"result":@(isGestureCodeSet)}.ac_JSONFragment)];
+    
+    return isGestureCodeSet ? UEX_TRUE : UEX_FALSE;
 }
 
--(void)config:(NSMutableArray *)inArguments{
-    self.config=[uexGestureUnlockConfiguration defaultConfiguration];
-    if([inArguments count] < 1){
-        return;
-    }
-    id info = [inArguments[0] JSONValue];
-    if(!info || ![info isKindOfClass:[NSDictionary class]]){
-        return;
-    }
-    
-    NSArray<NSString *> *stringKeys=@[@"creationBeginPrompt",
-                          @"codeLengthErrorPrompt",
-                          @"codeCheckPrompt",
-                          @"checkErrorPrompt",
-                          @"creationSucceedPrompt",
-                          @"verificationBeginPrompt",
-                          @"verificationErrorPrompt",
-                          @"verificationSucceedPrompt",
-                          @"cancelVerificationButtonTitle",
-                          @"cancelCreationButtonTitle",
-                          @"restartCreationButtonTitle"
-                          ];
+- (void)config:(NSMutableArray *)inArguments{
+    self.config = [uexGestureUnlockConfiguration defaultConfiguration];
+    ACArgsUnpack(NSDictionary *info) = inArguments;
+    NSArray<NSString *> *stringKeys = @[
+                                        @"creationBeginPrompt",
+                                        @"codeLengthErrorPrompt",
+                                        @"codeCheckPrompt",
+                                        @"checkErrorPrompt",
+                                        @"creationSucceedPrompt",
+                                        @"verificationBeginPrompt",
+                                        @"verificationErrorPrompt",
+                                        @"verificationSucceedPrompt",
+                                        @"cancelVerificationButtonTitle",
+                                        @"cancelCreationButtonTitle",
+                                        @"restartCreationButtonTitle"
+                                        ];
     for (NSString *aKey in stringKeys) {
-        if(![info objectForKey:aKey]||![info[aKey] isKindOfClass:[NSString class]]){
-            continue;
+        NSString *value = stringArg(info[aKey]);
+        if (value) {
+            [self.config setValue:value forKeyPath:aKey];
         }
-        [self.config setValue:info[aKey] forKeyPath:aKey];
+        
+        
     }
-    NSArray<NSString *> *intervalKeys=@[@"errorRemainInterval",
-                                      @"successRemainInterval",
+    NSArray<NSString *> *intervalKeys = @[
+                                          @"errorRemainInterval",
+                                          @"successRemainInterval",
                                       ];
     for (NSString *aKey in intervalKeys) {
         if(![info objectForKey:aKey]){
@@ -94,7 +95,8 @@
         }
         [self.config setValue:@([info[aKey] doubleValue]/1000) forKeyPath:aKey];
     }
-    NSArray<NSString *> *integerKeys=@[@"minimumCodeLength",
+    NSArray<NSString *> *integerKeys = @[
+                                        @"minimumCodeLength",
                                         @"maximumAllowTrialTimes",
                                         ];
     for (NSString *aKey in integerKeys) {
@@ -103,20 +105,21 @@
         }
         [self.config setValue:@([info[aKey] integerValue]) forKeyPath:aKey];
     }
-    NSArray<NSString *> *imageKeys=@[@"backgroundImage",
+    NSArray<NSString *> *imageKeys = @[
+                                       @"backgroundImage",
                                        @"iconImage",
                                        ];
     for (NSString *aKey in imageKeys) {
         if(![info objectForKey:aKey]){
             continue;
         }
-        UIImage *image=[UIImage imageWithContentsOfFile:[self absPath:info[aKey]]];
+        UIImage *image = [UIImage imageWithContentsOfFile:[self absPath:info[aKey]]];
         if(!image){
             continue;
         }
         [self.config setValue:image forKeyPath:aKey];
     }
-    NSArray<NSString *> *colorKeys=@[@"backgroundColor",
+    NSArray<NSString *> *colorKeys = @[@"backgroundColor",
                                      @"normalThemeColor",
                                      @"selectedThemeColor",
                                      @"errorThemeColor",
@@ -125,7 +128,7 @@
         if(![info objectForKey:aKey]){
             continue;
         }
-        UIColor *color=[UIColor uexGU_ColorFromHtmlString:info[aKey]];
+        UIColor *color = [UIColor ac_ColorWithHTMLColorString:info[aKey]];
         if(!color){
             continue;
         }
@@ -133,89 +136,110 @@
     }
 }
 
--(void)verify:(NSMutableArray *)inArguments{
+- (void)verify:(NSMutableArray *)inArguments{
+    
+    if (self.controller) {
+        return;
+    }
+    ACJSFunctionRef *cb = JSFunctionArg(inArguments.lastObject);
+    
+    
     @weakify(self);
-    self.controller=[[uexGestureUnlockViewController alloc]
+    self.controller = [[uexGestureUnlockViewController alloc]
                      initWithConfiguration:self.config
                      mode:uexGestureUnlockModeVerifyCode
                      progress:^(uexGestureUnlockEvent event) {
                          @strongify(self);
-                         [self callbackJSONwithName:@"onEventOccur" object:@{@"eventCode":@(event)}];
+                         [self.webViewEngine callbackWithFunctionKeyPath:@"uexGestureUnlock.onEventOccur"
+                                                               arguments:ACArgsPack(@{@"eventCode":@(event)}.ac_JSONFragment)];
                      }
                      completion:^(BOOL isFinished, NSError *error) {
                          @strongify(self);
-                         NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+                         UEX_ERROR err = kUexNoError;
+                         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
                          [dict setValue:@(isFinished) forKey:@"isFinished"];
                          if(error){
+                             err = uexErrorMake(error.code,error.localizedDescription);
                              [dict setValue:@(error.code) forKey:@"errorCode"];
-                             [dict setValue:error.domain forKey:@"errorString"];
+                             [dict setValue:error.localizedDescription forKey:@"errorString"];
                          }
-                         [self callbackJSONwithName:@"cbVerify" object:dict];
+                         
+                         [self.webViewEngine callbackWithFunctionKeyPath:@"uexGestureUnlock.cbVerify"
+                                                               arguments:ACArgsPack(dict.ac_JSONFragment)];
+                         [cb executeWithArguments:ACArgsPack(err,dict)];
                          [self dismissController];
                      }];
-    [EUtility brwView:self.meBrwView presentModalViewController:self.controller animated:YES];
+    [[self.webViewEngine viewController]presentViewController:self.controller animated:YES completion:nil];
 }
 
--(void)create:(NSMutableArray *)inArguments{
+- (void)create:(NSMutableArray *)inArguments{
+    if (self.controller) {
+        return;
+    }
+    
     uexGestureUnlockMode mode = uexGestureUnlockModeVerifyThenCreateCode;
-    if([inArguments count]>0){
-        id info = [inArguments[0] JSONValue];
-        if(info && [info isKindOfClass:[NSDictionary class]] && [info objectForKey:@"isNeedVerifyBeforeCreate"]){
-            BOOL isNeedVerifyBeforeCreate =[[info objectForKey:@"isNeedVerifyBeforeCreate"] boolValue];
-            if(!isNeedVerifyBeforeCreate){
-                mode = uexGestureUnlockModeCreateCode;
-
-            }
+    
+    ACArgsUnpack(NSDictionary *info) = inArguments;
+    ACJSFunctionRef *cb =  JSFunctionArg(inArguments.lastObject);
+    
+    if (info && info[@"isNeedVerifyBeforeCreate"]) {
+        BOOL isNeedVerifyBeforeCreate =[[info objectForKey:@"isNeedVerifyBeforeCreate"] boolValue];
+        if(!isNeedVerifyBeforeCreate){
+            mode = uexGestureUnlockModeCreateCode;
+            
         }
     }
+
     if(![uexGestureUnlockViewController isGestureCodeSet]){
         mode = uexGestureUnlockModeCreateCode;
     }
     @weakify(self);
-    self.controller=[[uexGestureUnlockViewController alloc]
+    self.controller = [[uexGestureUnlockViewController alloc]
                      initWithConfiguration:self.config
                      mode:mode
                      progress:^(uexGestureUnlockEvent event) {
                          @strongify(self);
-                         [self callbackJSONwithName:@"onEventOccur" object:@{@"eventCode":@(event)}];
+                         [self.webViewEngine callbackWithFunctionKeyPath:@"uexGestureUnlock.onEventOccur"
+                                                               arguments:ACArgsPack(@{@"eventCode":@(event)}.ac_JSONFragment)];
+                         
                      }
                      completion:^(BOOL isFinished, NSError *error) {
                          @strongify(self);
+                         UEX_ERROR err = kUexNoError;
                          NSMutableDictionary *dict=[NSMutableDictionary dictionary];
                          [dict setValue:@(isFinished) forKey:@"isFinished"];
-                         if(error){
+                         if(error || !isFinished){
+                             err = uexErrorMake(error.code,error.localizedDescription);
                              [dict setValue:@(error.code) forKey:@"errorCode"];
-                             [dict setValue:error.domain forKey:@"errorString"];
+                             [dict setValue:error.localizedDescription forKey:@"errorString"];
                          }
-                         [self callbackJSONwithName:@"cbCreate" object:dict];
+                         
+                         [self.webViewEngine callbackWithFunctionKeyPath:@"uexGestureUnlock.cbCreate"
+                                                               arguments:ACArgsPack(dict.ac_JSONFragment)];
+                         [cb executeWithArguments:ACArgsPack(err,dict)];
                          [self dismissController];
+                         
                      }];
-    [EUtility brwView:self.meBrwView presentModalViewController:self.controller animated:YES];
-
+    
+    [[self.webViewEngine viewController]presentViewController:self.controller animated:YES completion:nil];
 }
 
--(void)cancel:(NSMutableArray *)inArguments{
+- (void)cancel:(NSMutableArray *)inArguments{
     if(self.controller){
         [self.controller cancel];
     }
 }
--(void)resetGestureCode:(NSMutableArray *)inArguments{
+- (void)resetGestureCode:(NSMutableArray *)inArguments{
     [uexGestureUnlockViewController removeGestureCode];
 }
 
 #pragma mark - Private Methods
--(void)dismissController{
+- (void)dismissController{
     if(self.controller){
         [self.controller dismissViewControllerAnimated:YES completion:^{
-            self.controller=nil;
+            self.controller = nil;
         }];
     }
 }
--(void)callbackJSONwithName:(NSString *)name object:(id)obj{
-    [EUtility uexPlugin:@"uexGestureUnlock"
-         callbackByName:name
-             withObject:obj
-                andType:uexPluginCallbackWithJsonString
-               inTarget:self.meBrwView];
-}
+
 @end
