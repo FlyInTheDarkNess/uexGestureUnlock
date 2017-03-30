@@ -24,12 +24,12 @@
 #import "uexGestureUnlockConfiguration.h"
 #import <AppCanKit/AppCanKit.h>
 
-NSString *const kUexGestureUnlockConfigurationSaveGestureCodeKey=@"kUexGestureUnlockConfigurationSaveGestureCodeKey";
+NSString *const kUexGestureUnlockConfigurationSaveGestureCodeKey = @"kUexGestureUnlockConfigurationSaveGestureCodeKey";
 @implementation uexGestureUnlockConfiguration
 
 
 
-+(instancetype)defaultConfiguration{
++ (instancetype)defaultConfiguration{
     uexGestureUnlockConfiguration *config=[[self alloc] init];
     if(config) {
         config.minimumCodeLength = 4;

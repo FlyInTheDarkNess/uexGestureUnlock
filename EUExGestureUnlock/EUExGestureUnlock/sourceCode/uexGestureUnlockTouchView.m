@@ -44,7 +44,7 @@ static CGFloat kCircleConnectLineWidth = 1;//连线宽度
 #pragma mark - 绑定ViewController
 
 
--(void)combineWithViewController:(uexGestureUnlockViewController *)controller{
+- (void)combineWithViewController:(uexGestureUnlockViewController *)controller{
     [super combineWithViewController:controller];
     self.controller = controller;
     //配置verifyResultCommand
@@ -73,7 +73,7 @@ static CGFloat kCircleConnectLineWidth = 1;//连线宽度
     }];
 }
 
--(uexGestureUnlockCircle *)getCircle{
+- (uexGestureUnlockCircle *)getCircle{
     uexGestureUnlockCircle *circle = [[uexGestureUnlockCircle alloc]
             initWithType:uexGestureUnlockCircleTypeGestureCircle
             configuration:self.config];
@@ -81,7 +81,7 @@ static CGFloat kCircleConnectLineWidth = 1;//连线宽度
 }
 
 #pragma mark - 画线
--(void)drawRect:(CGRect)rect{
+- (void)drawRect:(CGRect)rect{
     if(!self.selectedCircles || [self.selectedCircles count] < 1){
         return;//没有任何圆被选择
     }
@@ -120,17 +120,17 @@ static CGFloat kCircleConnectLineWidth = 1;//连线宽度
     CGContextStrokePath(ctx);
 }
 #pragma mark - 触摸事件
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self reset];//开始触摸事件时，先重置
     [self.controller.touchStartStream sendNext:nil];
     [self dealWithTouchs:touches];
 }
--(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     
     [self dealWithTouchs:touches];
 }
 
--(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     self.needReset=YES;
     NSArray *codeArray=[[[self.selectedCircles rac_sequence]
                         map:^id(uexGestureUnlockCircle *circle) {
@@ -139,7 +139,7 @@ static CGFloat kCircleConnectLineWidth = 1;//连线宽度
                         array];
     [self.controller.verifyResultCommand execute:codeArray];
 }
--(void)dealWithTouchs:(NSSet<UITouch *> *)touches{
+- (void)dealWithTouchs:(NSSet<UITouch *> *)touches{
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];//触摸点
     self.currentPoint=point;
@@ -160,7 +160,7 @@ static CGFloat kCircleConnectLineWidth = 1;//连线宽度
 
 
 #pragma mark - 添加圆到已选择中
--(void)addSelectedCircle:(uexGestureUnlockCircle *)circle{
+- (void)addSelectedCircle:(uexGestureUnlockCircle *)circle{
     if(!circle || [self.selectedCircles containsObject:circle]){
         return;//如果圆已经被添加，直接返回
     }
@@ -203,7 +203,7 @@ static CGFloat kCircleConnectLineWidth = 1;//连线宽度
 //返回2个点的中点
 
 #pragma mark - 回到初始状态 准备下一次触摸事件
--(void)reset{
+- (void)reset{
     if(!self.needReset){
         return;
     }

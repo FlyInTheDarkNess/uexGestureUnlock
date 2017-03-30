@@ -39,9 +39,9 @@
 
 
 
--(instancetype)initWithSideLength:(CGFloat)sideLength;
--(void)combineWithViewController:(uexGestureUnlockViewController *)controller;
+- (instancetype)initWithSideLength:(CGFloat)sideLength;
+- (void)combineWithViewController:(uexGestureUnlockViewController *)controller;
 
 //覆写这个方法以定制放到view中的circle;
--(uexGestureUnlockCircle *)getCircle;
+- (uexGestureUnlockCircle *)getCircle;
 @end

@@ -23,7 +23,7 @@
 
 #import "uexGestureUnlockCircle.h"
 #import "uexGestureUnlockConfiguration.h"
-#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveObjC/ReactiveObjC.h>
 
 static CGFloat kCircleEdgeWidth = 1;//圆环线宽
 static CGFloat kInnerCircleRatio = 0.6;//内部实心圆所占的比例
@@ -35,7 +35,7 @@ static CGFloat kInnerCircleRatio = 0.6;//内部实心圆所占的比例
 
 
 @implementation uexGestureUnlockCircle
--(instancetype)initWithType:(uexGestureUnlockCircleType)type
+- (instancetype)initWithType:(uexGestureUnlockCircleType)type
               configuration:(uexGestureUnlockConfiguration *)config{
     self = [super init];
     if(self){
@@ -46,7 +46,7 @@ static CGFloat kInnerCircleRatio = 0.6;//内部实心圆所占的比例
     return self;
 }
 
--(void)setup{
+- (void)setup{
     self.backgroundColor = [UIColor clearColor];
     self.status = uexGestureUnlockCircleStatusNormal;
     @weakify(self);
@@ -84,7 +84,7 @@ static CGFloat kInnerCircleRatio = 0.6;//内部实心圆所占的比例
      }];
 }
 
--(void)drawRect:(CGRect)rect{
+- (void)drawRect:(CGRect)rect{
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
     CGFloat ratio;
@@ -117,7 +117,7 @@ static CGFloat kInnerCircleRatio = 0.6;//内部实心圆所占的比例
 
 }
 
--(void)drawOuterCircleWithContext:(CGContextRef)ctx rect:(CGRect)rect{
+- (void)drawOuterCircleWithContext:(CGContextRef)ctx rect:(CGRect)rect{
     CGMutablePathRef circlePath = CGPathCreateMutable();
     CGPathAddEllipseInRect(circlePath, NULL, rect);
     CGContextAddPath(ctx, circlePath);
@@ -127,7 +127,7 @@ static CGFloat kInnerCircleRatio = 0.6;//内部实心圆所占的比例
     CGPathRelease(circlePath);
 }
 
--(void)drawInnerCircleWithContext:(CGContextRef)ctx rect:(CGRect)rect ratio:(CGFloat)ratio{
+- (void)drawInnerCircleWithContext:(CGContextRef)ctx rect:(CGRect)rect ratio:(CGFloat)ratio{
     CGMutablePathRef circlePath = CGPathCreateMutable();
     CGPathAddEllipseInRect(circlePath, NULL, CGRectMake(rect.size.width/2 * (1 - ratio) + kCircleEdgeWidth, rect.size.height/2 * (1 - ratio) + kCircleEdgeWidth, rect.size.width * ratio - kCircleEdgeWidth * 2, rect.size.height * ratio - kCircleEdgeWidth * 2));
     if(self.status == uexGestureUnlockCircleStatusNormal){

@@ -64,5 +64,5 @@ extern NSString *const kUexGestureUnlockConfigurationSaveGestureCodeKey;
 
 
 
-+(instancetype)defaultConfiguration;
++ (instancetype)defaultConfiguration;
 @end

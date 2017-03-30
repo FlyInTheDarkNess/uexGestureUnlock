@@ -26,7 +26,7 @@
 #import "uexGestureUnlockViewController.h"
 @implementation uexGestureUnlockInfoView
 
--(void)combineWithViewController:(uexGestureUnlockViewController *)controller{
+- (void)combineWithViewController:(uexGestureUnlockViewController *)controller{
     [super combineWithViewController:controller];
     @weakify(self);
     [controller.verifyResultCommand.executionSignals subscribeNext:^(RACSignal *execution) {
@@ -49,13 +49,13 @@
     }];
 }
 
--(uexGestureUnlockCircle *)getCircle{
+- (uexGestureUnlockCircle *)getCircle{
     uexGestureUnlockCircle *circle = [[uexGestureUnlockCircle alloc]
                                       initWithType:uexGestureUnlockCircleTypeInfoCircle
                                       configuration:self.config];
     return circle;
 }
--(void)SelectCircles:(NSArray<NSNumber *> *)indices{
+- (void)SelectCircles:(NSArray<NSNumber *> *)indices{
     [self deselectAll];
     for (NSNumber *index in indices) {
         [self.selectedCircles addObject:[self.circles objectAtIndex:[index integerValue]-1]];
@@ -64,13 +64,13 @@
 
          
 }
--(void)setSelectedCirclesStatus:(uexGestureUnlockCircleStatus)status{
+- (void)setSelectedCirclesStatus:(uexGestureUnlockCircleStatus)status{
     [self.selectedCircles.rac_sequence all:^BOOL(uexGestureUnlockCircle *circle) {
         circle.status=status;
         return YES;
     }];
 }
--(void)deselectAll{
+- (void)deselectAll{
     if([self.selectedCircles count] == 0){
         return;
     }

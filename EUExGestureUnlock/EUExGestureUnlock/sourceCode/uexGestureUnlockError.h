@@ -25,10 +25,10 @@
 #import <Foundation/Foundation.h>
 
 @interface uexGestureUnlockError : NSObject
-+(NSError *)codeNotSetError;
-+(NSError *)creationCancelledError;
-+(NSError *)verificationCancelledError;
-+(NSError *)maxTrialTimesExceededError;
-+(NSError *)forcedCancalError;
-+(NSError *)unknownAccidentHappenedError;
++ (NSError *)codeNotSetError;
++ (NSError *)creationCancelledError;
++ (NSError *)verificationCancelledError;
++ (NSError *)maxTrialTimesExceededError;
++ (NSError *)forcedCancalError;
++ (NSError *)unknownAccidentHappenedError;
 @end

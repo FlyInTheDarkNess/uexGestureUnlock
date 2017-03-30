@@ -39,7 +39,7 @@
     return self;
 }
 
--(void)combineWithViewController:(uexGestureUnlockViewController *)controller{
+- (void)combineWithViewController:(uexGestureUnlockViewController *)controller{
     self.config = controller.config;
     self.backgroundColor = [UIColor clearColor];
     for (int i=0; i<9; i++) {
@@ -70,7 +70,7 @@
 }
 
 
--(uexGestureUnlockCircle *)getCircle{
+- (uexGestureUnlockCircle *)getCircle{
     return [[uexGestureUnlockCircle alloc] init];
 }
 

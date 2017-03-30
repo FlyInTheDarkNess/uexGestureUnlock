@@ -44,7 +44,7 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCircleType) {
 
 @property (nonatomic,strong)UIColor *themeColor;//主题颜色
 
--(instancetype)initWithType:(uexGestureUnlockCircleType)type
+- (instancetype)initWithType:(uexGestureUnlockCircleType)type
                configuration:(uexGestureUnlockConfiguration *)config;
 
 

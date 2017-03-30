@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
     <plugin
-        uexName="uexGestureUnlock" version="4.0.0" build="0">
-        <info>0: 手势解锁功能插件</info>
+        uexName="uexGestureUnlock" version="4.0.1" build="1">
+        <info>1: 更新RAC依赖库</info>
+        <build>0: 手势解锁功能插件</build>
     </plugin>
 </uexplugins>
 

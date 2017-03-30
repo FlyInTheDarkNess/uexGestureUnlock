@@ -23,7 +23,7 @@
 
 
 #import <Foundation/Foundation.h>
-#import "EUExBase.h"
+#import <AppCanKit/AppCanKit.h>
 
 @interface EUExGestureUnlock : EUExBase
 

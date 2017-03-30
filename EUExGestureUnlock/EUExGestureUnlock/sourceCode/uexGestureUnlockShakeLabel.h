@@ -24,5 +24,5 @@
 #import <UIKit/UIKit.h>
 @class uexGestureUnlockViewController;
 @interface uexGestureUnlockShakeLabel : UILabel
--(void)combineWithViewController:(__kindof uexGestureUnlockViewController *)controller;
+- (void)combineWithViewController:(__kindof uexGestureUnlockViewController *)controller;
 @end

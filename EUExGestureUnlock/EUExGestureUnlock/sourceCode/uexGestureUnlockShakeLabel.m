@@ -39,7 +39,7 @@ static NSString *const kUexGestureUnlockShakeAnimationKey = @"kUexGestureUnlockS
     // Drawing code
 }
 */
--(void)combineWithViewController:(uexGestureUnlockViewController *)controller{
+- (void)combineWithViewController:(uexGestureUnlockViewController *)controller{
     self.config = controller.config;
     self.backgroundColor = [UIColor clearColor];
     @weakify(self);
@@ -67,7 +67,7 @@ static NSString *const kUexGestureUnlockShakeAnimationKey = @"kUexGestureUnlockS
 
 
 
--(void)shake{
+- (void)shake{
     CAKeyframeAnimation * animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
     CGFloat currentTx = self.transform.tx;
     

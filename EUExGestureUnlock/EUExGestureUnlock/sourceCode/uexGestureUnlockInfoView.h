@@ -26,6 +26,6 @@
 #import "uexGestureUnlockBaseCircleView.h"
 #import "uexGestureUnlockCircle.h"
 @interface uexGestureUnlockInfoView : uexGestureUnlockBaseCircleView
--(void)SelectCircles:(NSArray<NSNumber *> *)indices;
--(void)deselectAll;
+- (void)SelectCircles:(NSArray<NSNumber *> *)indices;
+- (void)deselectAll;
 @end
