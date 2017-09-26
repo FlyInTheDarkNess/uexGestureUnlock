@@ -248,7 +248,7 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
                 self.prompt = self.config.verificationErrorPrompt;
                 if(self.config.maximumAllowTrialTimes == 0){
                     self.prompt = self.config.verificationErrorPrompt;
-                }else if(self.trialTimes <= self.config.maximumAllowTrialTimes){
+                }else if(self.trialTimes < self.config.maximumAllowTrialTimes){
                     self.prompt = [NSString stringWithFormat:self.config.verificationErrorPrompt,(int)(self.config.maximumAllowTrialTimes-self.trialTimes)];
                     
                 }else{
