@@ -134,6 +134,11 @@
 }
 
 -(void)verify:(NSMutableArray *)inArguments{
+    
+    if (self.controller) {
+        return;
+    }
+    
     @weakify(self);
     self.controller=[[uexGestureUnlockViewController alloc]
                      initWithConfiguration:self.config
@@ -153,6 +158,8 @@
                          [self callbackJSONwithName:@"cbVerify" object:dict];
                          [self dismissController];
                      }];
+    
+    
     [EUtility brwView:self.meBrwView presentModalViewController:self.controller animated:YES];
 }
 
@@ -164,12 +171,15 @@
             BOOL isNeedVerifyBeforeCreate =[[info objectForKey:@"isNeedVerifyBeforeCreate"] boolValue];
             if(!isNeedVerifyBeforeCreate){
                 mode = uexGestureUnlockModeCreateCode;
-
+                
             }
         }
     }
     if(![uexGestureUnlockViewController isGestureCodeSet]){
         mode = uexGestureUnlockModeCreateCode;
+    }
+    if (self.controller) {
+        return;
     }
     @weakify(self);
     self.controller=[[uexGestureUnlockViewController alloc]
@@ -190,8 +200,8 @@
                          [self callbackJSONwithName:@"cbCreate" object:dict];
                          [self dismissController];
                      }];
+    
     [EUtility brwView:self.meBrwView presentModalViewController:self.controller animated:YES];
-
 }
 
 -(void)cancel:(NSMutableArray *)inArguments{

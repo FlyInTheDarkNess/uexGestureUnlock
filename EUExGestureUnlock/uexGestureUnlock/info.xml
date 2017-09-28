@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
-  <plugin uexName="uexGestureUnlock" version="3.0.3" build="3">
-    <info>3: IDE证书更新</info>
+  <plugin uexName="uexGestureUnlock" version="3.0.5" build="5">
+    <info>5: 取消“您还可以尝试0次”的提醒</info>
+    <build>4: 修复手势密码页面会弹出多层的bug</build>
+    <build>3: IDE证书更新</build>
     <build>2: 添加IDE支持</build>
     <build>1: 修复maximumAllowTrialTimes拼写错误</build>
     <build>0: 手势解锁 功能插件</build>
