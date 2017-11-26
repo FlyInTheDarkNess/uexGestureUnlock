@@ -96,9 +96,10 @@
         [self.config setValue:@([info[aKey] doubleValue]/1000) forKeyPath:aKey];
     }
     NSArray<NSString *> *integerKeys = @[
-                                        @"minimumCodeLength",
-                                        @"maximumAllowTrialTimes",
-                                        ];
+                                         @"minimumCodeLength",
+                                         @"maximumAllowTrialTimes",
+                                         @"isShowTrack"
+                                         ];
     for (NSString *aKey in integerKeys) {
         if(![info objectForKey:aKey]){
             continue;
