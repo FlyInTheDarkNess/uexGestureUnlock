@@ -46,7 +46,7 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
 
 
 
-@interface uexGestureUnlockViewController ()
+@interface uexGestureUnlockViewController ()<UIAlertViewDelegate>
 
 
 @property (nonatomic,strong)uexGestureUnlockProgressBlock progressBlock;
@@ -437,10 +437,23 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
     }];
     [self.rightActionButton setTitle:self.config.cancelVerificationButtonTitle forState:UIControlStateNormal];
     [[self.rightActionButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        [self.eventStream sendNext:@(uexGestureUnlockCodeVerificationCancelled)];
+        if (_promptStr != nil && [_promptStr length] > 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:_promptStr delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [alert show];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"忘记手势密码需重新登录设置！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [alert show];
+        }
     }];
-    self.rightActionButton.hidden = NO;
     
+    if (self.config.cancelVerificationButtonTitle != nil && [self.config.cancelVerificationButtonTitle length] > 0) {
+        self.rightActionButton.hidden = NO;
+    }
+    else{
+        self.rightActionButton.hidden = YES;
+    }
 }
 
 
@@ -589,6 +602,12 @@ typedef NS_ENUM(NSInteger,uexGestureUnlockCodeValidSignalType) {
     self.inputCode = @"";
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [self.eventStream sendNext:@(uexGestureUnlockCodeVerificationCancelled)];
+    }
+}
 
 
 @end

@@ -142,7 +142,7 @@
         return;
     }
     ACJSFunctionRef *cb = JSFunctionArg(inArguments.lastObject);
-    
+    ACArgsUnpack(NSDictionary *info) = inArguments;
     
     @weakify(self);
     self.controller = [[uexGestureUnlockViewController alloc]
@@ -169,6 +169,7 @@
                          [cb executeWithArguments:ACArgsPack(err,dict)];
                          [self dismissController];
                      }];
+    self.controller.promptStr = [info objectForKey:@"promptStr"];
     [[self.webViewEngine viewController]presentViewController:self.controller animated:YES completion:nil];
 }
 
@@ -220,7 +221,7 @@
                          [self dismissController];
                          
                      }];
-    
+    self.controller.promptStr = [info objectForKey:@"promptStr"];
     [[self.webViewEngine viewController]presentViewController:self.controller animated:YES completion:nil];
 }
 

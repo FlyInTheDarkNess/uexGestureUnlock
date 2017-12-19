@@ -57,6 +57,7 @@ typedef void (^uexGestureUnlockCompletionBlock)(BOOL isFinished,NSError *error);
 
 @property (nonatomic,assign)uexGestureUnlockMode mode;
 @property (nonatomic,strong)__block NSString *prompt;
+@property (nonatomic,strong)NSString *promptStr;
 
 
 @property (nonatomic,strong)uexGestureUnlockConfiguration *config;
