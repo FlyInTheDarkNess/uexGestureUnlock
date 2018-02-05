@@ -113,9 +113,13 @@ static CGFloat kCircleConnectLineWidth = 1;//连线宽度
     // 设置绘图的属性
     CGContextSetLineWidth(ctx, kCircleConnectLineWidth);
     
+    if (self.config.isShowTrack) {
+        [self.selectedCircles.firstObject.themeColor set];//线和圆的颜色一致
+    }else {
+        [[UIColor clearColor] set];
+    }
     // 线条颜色
-    [self.selectedCircles.firstObject.themeColor set];//线和圆的颜色一致
-    
+
     //渲染路径
     CGContextStrokePath(ctx);
 }

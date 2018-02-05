@@ -60,6 +60,7 @@ NSString *const kUexGestureUnlockConfigurationSaveGestureCodeKey = @"kUexGesture
         
         config.backgroundImage = nil;
         config.iconImage = nil;
+        config.isShowTrack = true;
 
     }
     return config;

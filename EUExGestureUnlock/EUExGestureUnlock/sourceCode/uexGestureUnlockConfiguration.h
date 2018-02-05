@@ -60,6 +60,8 @@ extern NSString *const kUexGestureUnlockConfigurationSaveGestureCodeKey;
 //Image
 @property (nonatomic,strong)UIImage *backgroundImage;//手势解锁界面的背景图;
 @property (nonatomic,strong)UIImage *iconImage;//头像
+    
+@property (nonatomic,assign)BOOL isShowTrack;//是否显示轨迹
 
 
 

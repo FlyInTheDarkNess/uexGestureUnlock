@@ -66,7 +66,11 @@ static CGFloat kInnerCircleRatio = 0.6;//内部实心圆所占的比例
                 break;
             }
             case uexGestureUnlockCircleStatusSelected: {
-                self.themeColor = self.config.selectedThemeColor;
+               if (self.config.isShowTrack) {
+                    self.themeColor = self.config.selectedThemeColor;
+                }else {
+                    self.themeColor = self.config.normalThemeColor;
+                }
                 break;
             }
             case uexGestureUnlockCircleStatusError: {
@@ -132,8 +136,15 @@ static CGFloat kInnerCircleRatio = 0.6;//内部实心圆所占的比例
     CGPathAddEllipseInRect(circlePath, NULL, CGRectMake(rect.size.width/2 * (1 - ratio) + kCircleEdgeWidth, rect.size.height/2 * (1 - ratio) + kCircleEdgeWidth, rect.size.width * ratio - kCircleEdgeWidth * 2, rect.size.height * ratio - kCircleEdgeWidth * 2));
     if(self.status == uexGestureUnlockCircleStatusNormal){
         [[UIColor clearColor] set];//普通状态下为透明色
-    }else{
+    } else if (self.status == uexGestureUnlockCircleStatusError){
         [self.themeColor set];
+    } else{
+        if(self.config.isShowTrack) {
+            [self.themeColor set];
+        } else {
+            [[UIColor clearColor] set];
+        }
+      
     }
     CGContextAddPath(ctx, circlePath);
     CGContextFillPath(ctx);
@@ -147,8 +158,14 @@ static CGFloat kInnerCircleRatio = 0.6;//内部实心圆所占的比例
     CGContextAddPath(ctx, trianglePathM);
     if(self.status == uexGestureUnlockCircleStatusNormal){
         [[UIColor clearColor] set];//普通状态下为透明色
-    }else{
+    } else if (self.status == uexGestureUnlockCircleStatusError){
         [self.themeColor set];
+    }else{
+        if(self.config.isShowTrack) {
+            [self.themeColor set];
+        } else {
+            [[UIColor clearColor] set];
+        }
     }
     CGContextFillPath(ctx);
     CGPathRelease(trianglePathM);

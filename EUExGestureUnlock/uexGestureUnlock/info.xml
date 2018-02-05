@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
     <plugin
-        uexName="uexGestureUnlock" version="4.0.2.1" build="3">
-        <info>3: 添加需要弹框确认</info>
+        uexName="uexGestureUnlock" version="4.0.4" build="4">
+        <info>4: 添加需要弹框确认</info>
+        <build>3: 增加手势隐藏功能</build>
         <build>2: 取消还剩0次的提醒</build>
         <build>1: 更新RAC依赖库</build>
         <build>0: 手势解锁功能插件</build>
